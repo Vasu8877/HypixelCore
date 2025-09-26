@@ -1,0 +1,14 @@
+
+ # ██████╗░██╗░██████╗░██╗░░░░░░░██╗░█████╗░░░░░░██╗██╗████████╗
+ # ██╔══██╗██║██╔════╝░██║░░██╗░░██║██╔══██╗░░░░░██║██║╚══██╔══╝
+ # ██████╦╝██║╚█████╗░░╚██╗████╗██╔╝███████║░░░░░██║██║░░░██║░░░
+ # ██╔══██╗██║░╚═══██╗░░████╔═████║░██╔══██║██╗░░██║██║░░░██║░░░
+ # ██████╦╝██║██████╔╝░░╚██╔╝░╚██╔╝░██║░░██║╚█████╔╝██║░░░██║░░░
+ # ╚═════╝░╚═╝╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝░╚════╝░╚═╝░░░╚═╝░░░
+
+# License: This configuration file is released under public domain.
+# You are free to use, modify, and distribute this configuration as you wish.
+# No attribution required.
+
+Join: §a[+] {player}
+Join-Message: "§r§7Welcome, {player} §7to §e{servername}\n\n§7Amazing SkyBlock Experience On Bedrock\n\n§e§lVOTE: {vote}\n§6§lDISCORD: {discord}"

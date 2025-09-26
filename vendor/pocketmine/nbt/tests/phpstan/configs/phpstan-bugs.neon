@@ -1,0 +1,19 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to function is_int\(\) with int will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: ../../../src/tag/IntArrayTag.php
+
+		-
+			message: '#^Parameter \#1 \$array \(list\<int\>\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: ../../../src/tag/IntArrayTag.php
+
+		-
+			message: '#^Property pocketmine\\nbt\\tag\\ListTag\:\:\$value \(list\<pocketmine\\nbt\\tag\\Tag\>\) does not accept non\-empty\-array\<int\<0, max\>, pocketmine\\nbt\\tag\\Tag\>\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: ../../../src/tag/ListTag.php

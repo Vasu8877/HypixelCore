@@ -1,0 +1,2 @@
+# SkyblockCore
+A Skybock Core

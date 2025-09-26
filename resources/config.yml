@@ -1,0 +1,19 @@
+
+ # ██████╗░██╗░██████╗░██╗░░░░░░░██╗░█████╗░░░░░░██╗██╗████████╗
+ # ██╔══██╗██║██╔════╝░██║░░██╗░░██║██╔══██╗░░░░░██║██║╚══██╔══╝
+ # ██████╦╝██║╚█████╗░░╚██╗████╗██╔╝███████║░░░░░██║██║░░░██║░░░
+ # ██╔══██╗██║░╚═══██╗░░████╔═████║░██╔══██║██╗░░██║██║░░░██║░░░
+ # ██████╦╝██║██████╔╝░░╚██╔╝░╚██╔╝░██║░░██║╚█████╔╝██║░░░██║░░░
+ # ╚═════╝░╚═╝╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝░░╚═╝░╚════╝░╚═╝░░░╚═╝░░░
+
+# License: This configuration file is released under public domain.
+# You are free to use, modify, and distribute this configuration as you wish.
+# No attribution required.
+
+HUB: Hub
+
+SERVER-MOTD: §eYour Motd
+
+SERVER-NAME: §eYour Server
+VOTE-WEBSITE: §ehttps:://yourvotelink.com
+DISCORD-LINK: §ehttps:://discord.gg/yourdiscord
