@@ -9,7 +9,7 @@ use pocketmine\utils\Config;
 
 class API {
 
-  public static function CreateHub(): void {
+  public static function createHub(): void {
     $worldPath = Skyblock::getInstance()->getDataFolder() . "HUB.zip"; 
     if(file_exists($worldPath))
     {

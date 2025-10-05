@@ -21,9 +21,5 @@ class PlayerJoin implements Listener {
 
         $servername = Utils::getServerName();
         $player->sendMessage(str_replace(["{player}", "{servername}", "{vote}", "{discord}"], [$name, $servername, Skyblock::getInstance()->getConfig()->get("VOTE-WEBSITE"), Skyblock::getInstance()->getConfig()->get("DISCORD-LINK")], API::getMessage("Join-Message")));
-
-        //To Fix The Chunk Load Error!!
-        $hub = Server::getInstance()->getWorldManager()->getWorldByName(Skyblock::getInstance()->getConfig()->get("HUB"));
-        $player->teleport($hub->getSafeSpawn());
     }
 }

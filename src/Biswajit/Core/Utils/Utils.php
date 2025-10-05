@@ -8,10 +8,12 @@ use Biswajit\Core\Skyblock;
 
 class Utils {
 
+    public const BT_MARK = "§d» §";
+
     public static function getVersion(): string {
       return Skyblock::getInstance()->getDescription()->getVersion();
     }
-
+    
     public static function getServerName(): string {
       return Skyblock::getInstance()->getConfig()->get("SERVER-NAME");
     }

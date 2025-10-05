@@ -1,6 +1,12 @@
 name: SkyblockCore
-version: 0.0.1
+version: 0.0.2
 author: Biswajit
 main: Biswajit\Core\Skyblock
 api: 5.0.0
 description: A Skyblock plugin for PocketMine
+
+permissions:
+  weather.command.bt:
+    default: op
+  island.cmd:
+    default: true

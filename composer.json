@@ -4,11 +4,27 @@
     "type": "pocketmine-plugin",
     "require": {
         "php": ">=8.0",
-        "pocketmine/pocketmine-mp": "^5.0"
+        "pocketmine/pocketmine-mp": "^5.0",
+        "dktapps/pmforms": "^2.1",
+        "sof3/libasynql": "^4.0"
     },
     "autoload": {
         "psr-4": {
-            "Biswajit\\Core\\": "src/"
+            "Biswajit\\": "src/Biswajit/"
         }
-    }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse src",
+        "check": [
+            "@analyse",
+            "@test"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
