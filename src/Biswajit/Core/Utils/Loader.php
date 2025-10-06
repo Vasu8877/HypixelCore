@@ -8,6 +8,7 @@ use Biswajit\Core\Commands\player\IslandCommand;
 use Biswajit\Core\Commands\player\JoinCommand;
 use Biswajit\Core\Commands\player\VisitCommand;
 use Biswajit\Core\Commands\player\WeatherCommand;
+use Biswajit\Core\Listeners\Inventory\InventoryTransaction;
 use Biswajit\Core\Listeners\Island\IslandListener;
 use Biswajit\Core\Listeners\Player\PlayerCreation;
 use Biswajit\Core\Listeners\Player\PlayerJoin;
@@ -19,6 +20,7 @@ class Loader {
     {
         self::loadListeners();
         self::loadCommands();
+        ItemLoader::initialize();
     }
 
   public static function loadListeners(): void
@@ -26,7 +28,8 @@ class Loader {
         $listeners = [
              new PlayerJoin(),
              new PlayerCreation(),
-             new IslandListener()
+             new IslandListener(),
+             new InventoryTransaction()
         ];
 
         foreach ($listeners as $event){

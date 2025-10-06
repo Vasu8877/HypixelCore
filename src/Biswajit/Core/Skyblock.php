@@ -8,11 +8,16 @@ use Biswajit\Core\Managers\IslandManager;
 use Biswajit\Core\Managers\Worlds\IslandGenerator;
 use Biswajit\Core\Utils\Loader;
 use Biswajit\Core\Utils\Utils;
+use pocketmine\data\bedrock\EnchantmentIdMap;
+use pocketmine\item\enchantment\Enchantment;
 use pocketmine\plugin\PluginBase;
+use pocketmine\resourcepacks\ZippedResourcePack;
 use pocketmine\Server;
 use pocketmine\utils\SingletonTrait;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\generator\GeneratorManager;
+use ReflectionProperty;
+use Symfony\Component\Filesystem\Path;
 
 class Skyblock extends PluginBase {
 
@@ -20,6 +25,7 @@ class Skyblock extends PluginBase {
     use Database;
 
     public static string $prefix;
+    public const FAKE_ENCH_ID = 500;
 
     public function onLoad(): void {
         self::$instance = $this;
@@ -28,10 +34,12 @@ class Skyblock extends PluginBase {
         $this->reloadConfig();
 
         GeneratorManager::getInstance()->addGenerator(IslandGenerator::class, "void", fn() => null, true);
+        EnchantmentIdMap::getInstance()->register(self::FAKE_ENCH_ID, new Enchantment("Glow", 1, 0xffff, 0x0, 1));
         
         @mkdir($this->getDataFolder() . "island");
         $this->saveResource("HUB.zip");
         $this->saveResource("messages.yml");
+        $this->saveResource("Skyblock.mcpack");
 
         $this->getLogger()->info("§l§bLoading SkyblockCore Version: ". TextFormat::YELLOW . Utils::getVersion());
 
@@ -56,6 +64,10 @@ class Skyblock extends PluginBase {
      $world = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
      $world->setTime(1000);
      $world->stopTime();
+
+     $rpManager = $this->getServer()->getResourcePackManager();
+	 $rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "Skyblock.mcpack"))]));
+	 (new ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
 
      $this->initDatabase();
 

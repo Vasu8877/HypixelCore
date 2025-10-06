@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace Biswajit\Core;
 
+use pocketmine\item\Item;
+use pocketmine\item\StringToItemParser;
 use pocketmine\Server;
 use pocketmine\utils\Config;
 
@@ -32,5 +34,10 @@ class API {
   public static function getMessage(string $key): string {
     $File = new Config(Skyblock::getInstance()->getDataFolder() . "messages.yml", Config::YAML, []);
     return $File->get($key);
+  }
+
+  public static function getItem(string $name): Item {
+    $item = StringToItemParser::getInstance()->parse($name);
+    return $item;
   }
 }

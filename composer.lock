@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9d489e43b00f92ba57f553b832416d1b",
+    "content-hash": "4ab2bdde38b35508830d09d8963c7004",
     "packages": [
         {
             "name": "adhocore/json-comment",
@@ -124,6 +124,40 @@
                 }
             ],
             "time": "2025-08-29T12:40:03+00:00"
+        },
+        {
+            "name": "customiesdevs/customies",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RedTv-Developpement/Customies.git",
+                "reference": "7c3c6b595119f5b1146fb803143473f8997c32e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RedTv-Developpement/Customies/zipball/7c3c6b595119f5b1146fb803143473f8997c32e4",
+                "reference": "7c3c6b595119f5b1146fb803143473f8997c32e4",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "customiesdevs\\customies\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "DenielWorld and TwistedAsylumMC - Add composer by RedTv"
+                }
+            ],
+            "description": "Modding Minecraft For PocketMine-MP (Minecraft Bedrock Edition)",
+            "support": {
+                "issues": "https://github.com/RedTv-Developpement/Customies/issues",
+                "source": "https://github.com/RedTv-Developpement/Customies/tree/main"
+            },
+            "time": "2024-10-03T13:55:05+00:00"
         },
         {
             "name": "dktapps/pmforms",
@@ -1218,7 +1252,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "customiesdevs/customies": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

@@ -27,10 +27,13 @@ class IslandListener implements Listener
     public function onJoin(PlayerJoinEvent $event): void
     {
         $player = $event->getPlayer();
-        if (IslandData::getSync($player->getName()) !== null) {
+        IslandData::get($player->getName(), function(?IslandData $playerData) use ($player) {
+           if (is_null($playerData)) return;
+           if ($playerData->getSync($player->getName()) !== null){
             IslandManager::teleportToIsland($player);
             return;
-        }
+           }
+        });
 
         $defaultWorld = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
         if ($defaultWorld instanceof World) {

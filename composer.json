@@ -6,7 +6,8 @@
         "php": ">=8.0",
         "pocketmine/pocketmine-mp": "^5.0",
         "dktapps/pmforms": "^2.1",
-        "sof3/libasynql": "^4.0"
+        "sof3/libasynql": "^4.0",
+        "customiesdevs/customies": "dev-main"
     },
     "autoload": {
         "psr-4": {
