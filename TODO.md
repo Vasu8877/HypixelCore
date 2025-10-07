@@ -1,5 +1,0 @@
-- [ ] Add BlockFactory import
-- [ ] Make blockStates and blockIterator static
-- [ ] Fix onEnable: add chunk loading and correct setBlock syntax
-- [ ] Add onDisable method to save blockStates
-- [ ] Update mineBlockRespawn to use self:: for static properties
