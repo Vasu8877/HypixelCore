@@ -20,7 +20,7 @@ class SkyblockMenu extends MenuForm
         $heal = $player->getHealth();
         $maxheal = $player->getMaxHealth();
         $name = $player->getName();
-        parent::__construct("§fSkyblock Menu", "§bHello,\n§e$name\n\n\n§d§lSTATS:§r\n\n§cHealth: $heal" . "§7/§c$maxheal \n\n§aDefense: §a$defense \n\n§4Damage: $damage \n§r", [
+        parent::__construct("§fSkyblock Menu", "§bHello,\n§e$name\n§d§lSTATS:§r\n\n§cHealth: $heal" . "§7/§c$maxheal \n\n§aDefense: §a$defense \n\n§4Damage: $damage \n§r", [
             new MenuOption("§eSKYBLOCK MENU", new FormIcon("textures/icon/island", FormIcon::IMAGE_TYPE_PATH)),
             new MenuOption("§eSHOP MENU", new FormIcon("textures/icon/shop", FormIcon::IMAGE_TYPE_PATH)),
             new MenuOption("§eKIT MENU", new FormIcon("textures/icon/kits", FormIcon::IMAGE_TYPE_PATH)),

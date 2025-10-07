@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Biswajit\Core;
 
+use Biswajit\Core\Managers\BlockManager;
 use Biswajit\Core\Managers\IslandManager;
 use Biswajit\Core\Managers\Worlds\IslandGenerator;
 use Biswajit\Core\Utils\Loader;
@@ -26,6 +27,7 @@ class Skyblock extends PluginBase {
 
     public static string $prefix;
     public const FAKE_ENCH_ID = 500;
+    private array $handlers = [];
 
     public function onLoad(): void {
         self::$instance = $this;
@@ -61,18 +63,20 @@ class Skyblock extends PluginBase {
 
      $this->getServer()->getNetwork()->setName($this->getConfig()->get("SERVER-MOTD"));
 
+     BlockManager::initialise();
+     IslandManager::initialise();
+     
      $world = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
      $world->setTime(1000);
      $world->stopTime();
 
      $rpManager = $this->getServer()->getResourcePackManager();
-	 $rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "Skyblock.mcpack"))]));
-	 (new ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
+	   $rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "Skyblock.mcpack"))]));
+	   (new ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
 
      $this->initDatabase();
 
      Loader::initialize();
-     IslandManager::loadIslands($this);
     }
 
     public function onDisable(): void {
@@ -81,5 +85,12 @@ class Skyblock extends PluginBase {
 
         $players->sendTitle("§cServer Restarting");
        }
+       
+       BlockManager::Disable();
     }
+
+    public function addHandler($hander): void {
+		$this->handlers[] = $hander;
+	}
+
 }

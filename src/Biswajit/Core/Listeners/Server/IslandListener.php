@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Biswajit\Core\Listeners\Island;
+namespace Biswajit\Core\Listeners\Server;
 
 use Biswajit\Core\API;
 use Biswajit\Core\Managers\IslandManager;
 use Biswajit\Core\Utils\Utils;
 use Biswajit\Core\Sessions\IslandData;
+use Biswajit\Core\Player;
+use pocketmine\block\BlockTypeIds;
 use pocketmine\Server;
 use pocketmine\world\World;
-use pocketmine\player\Player;
 use pocketmine\event\Listener;
 use pocketmine\inventory\Inventory;
 use pocketmine\event\block\BlockBreakEvent;
@@ -27,18 +28,18 @@ class IslandListener implements Listener
     public function onJoin(PlayerJoinEvent $event): void
     {
         $player = $event->getPlayer();
+
+        if (!$player instanceof Player) return;
         IslandData::get($player->getName(), function(?IslandData $playerData) use ($player) {
-           if (is_null($playerData)) return;
-           if ($playerData->getSync($player->getName()) !== null){
+           if (is_null($playerData)) {
+             $defaultWorld = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
+             if ($defaultWorld instanceof World) {
+              $player->teleport($defaultWorld->getSafeSpawn());
+              }
+             }else{
             IslandManager::teleportToIsland($player);
-            return;
            }
         });
-
-        $defaultWorld = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
-        if ($defaultWorld instanceof World) {
-            $player->teleport($defaultWorld->getSafeSpawn());
-        }
     }
 
     public function onQuit(PlayerQuitEvent $event): void
@@ -255,6 +256,9 @@ class IslandListener implements Listener
     {
         $player = $event->getPlayer();
         $level = $player->getWorld()->getFolderName();
+
+        if($level === API::getHub()) return;
+
         $islandData = IslandData::getSync($level);
         if ($islandData !== null) {
             if (in_array($player->getName(), $islandData->getBanneds())) {
@@ -269,6 +273,11 @@ class IslandListener implements Listener
                 }
             }
         }
+       if($player->getWorld()->getBlock($player->getPosition())->getTypeId() === BlockTypeIds::NETHER_PORTAL) {
+            $world = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
+            $player->teleport($world->getSafeSpawn());
+            $player->sendTitle("§6Welcome To Hub", "" . Utils::getServerName());
+       }
     }
 
     public function onDamage(EntityDamageEvent $event): void
@@ -295,16 +304,18 @@ class IslandListener implements Listener
                     }
                 }
 
-                if ($event->getCause() === EntityDamageEvent::CAUSE_FALL) {
-                    $event->cancel();
-                }
+                $cancelCauses = [
+                 EntityDamageEvent::CAUSE_FALL,
+                 EntityDamageEvent::CAUSE_FIRE,
+                 EntityDamageEvent::CAUSE_FIRE_TICK,
+                 EntityDamageEvent::CAUSE_DROWNING,
+                 EntityDamageEvent::CAUSE_SUFFOCATION,
+                 EntityDamageEvent::CAUSE_MAGIC
+              ];
 
-                $event->cancel();
-                return;
-            }
-
-            if (IslandData::getSync($player->getName()) !== null) {
-                $event->cancel();
+           if (in_array($event->getCause(), $cancelCauses, true)) {
+              $event->cancel();
+               }
             }
         }
     }

@@ -9,15 +9,6 @@
 # You are free to use, modify, and distribute this configuration as you wish.
 # No attribution required.
 
-HUB: Hub
-
-PREFIX: §l§6SKYBLOCK§r §l§a»§r §e
-SERVER-MOTD: §eYour Motd
-
-SERVER-NAME: §eYour Server
-VOTE-WEBSITE: §ehttps:://yourvotelink.com
-DISCORD-LINK: §ehttps:://discord.gg/yourdiscord
-
 database:
   # The database type. "sqlite" and "mysql" are supported.
   type: sqlite
@@ -38,3 +29,14 @@ database:
   # The maximum number of simultaneous SQL queries
   # Recommended: 1 for sqlite, 2 for MySQL. You may want to further increase this value if your MySQL connection is very slow.
   worker-limit: 1
+
+HUB: Hub
+
+PREFIX: §l§6SKYBLOCK§r §l§a»§r §e
+SERVER-MOTD: §eYour Motd
+
+SERVER-NAME: §eYour Server
+VOTE-WEBSITE: §ehttps:://yourvotelink.com
+DISCORD-LINK: §ehttps:://discord.gg/yourdiscord
+
+respawn-time: 120 # in seconds

@@ -33,7 +33,7 @@ class API {
 
   public static function getMessage(string $key): string {
     $File = new Config(Skyblock::getInstance()->getDataFolder() . "messages.yml", Config::YAML, []);
-    return $File->get($key);
+    return $File->getNested($key);
   }
 
   public static function getItem(string $name): Item {

@@ -1,5 +1,5 @@
 name: SkyblockCore
-version: 0.0.3
+version: 0.0.4
 author: Biswajit
 main: Biswajit\Core\Skyblock
 api: 5.0.0
@@ -10,3 +10,7 @@ permissions:
     default: op
   island.cmd:
     default: true
+  player.hub.cmd:
+    default: true
+  staff.mw.cmd:
+    default: op

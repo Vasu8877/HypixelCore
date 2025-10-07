@@ -4,7 +4,6 @@ declare(strict_types = 1);
 
 namespace Biswajit\Core;
 
-use Biswajit\Core\Sessions\IslandSessions;
 use Biswajit\Core\Sessions\SessionsData;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player as PMMPPlayer;
