@@ -18,7 +18,7 @@ class IslandVisitAllOpenForm extends MenuForm
     {
         $options = [];
         foreach (Server::getInstance()->getOnlinePlayers() as $player) {
-            $islandData = IslandData::get($player->getName());
+            $islandData = IslandData::getSync($player->getName());
             $value = $islandData ? $islandData->getVisit() : false;
             if ($value) {
                 $options[] = new MenuOption($player->getName());

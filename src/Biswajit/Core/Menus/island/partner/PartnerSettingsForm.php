@@ -16,7 +16,7 @@ class PartnerSettingsForm extends CustomForm
 {
     public function __construct(Player $player)
     {
-        $islandData = IslandData::get($player->getName());
+        $islandData = IslandData::getSync($player->getName());
         $data = $islandData ? $islandData->getSettings() : [];
 
         parent::__construct(

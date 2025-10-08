@@ -21,7 +21,7 @@ class IslandOptionsForm extends MenuForm
 
     public function __construct(Player $player)
     {
-        IslandData::get($player->getName(), function(?IslandData $islandData) use ($player): void {
+        IslandData::get($player->getName(), function(?IslandData $islandData): void {
             $visitStatus = $islandData ? $islandData->getVisit() : false;
 
             parent::__construct(
@@ -41,7 +41,7 @@ class IslandOptionsForm extends MenuForm
                     new MenuOption("§bTeleport Jerry\n§d§l»§r Tap to select!", new FormIcon('https://i.pinimg.com/originals/6d/71/eb/6d71eb4e2987eee7b11718ddf97bf297.jpg', FormIcon::IMAGE_TYPE_URL)),
                     new MenuOption("§bDelete Your Island\n§d§l»§r Tap to select!", new FormIcon('https://cdn-icons-png.flaticon.com/128/3496/3496416.png', FormIcon::IMAGE_TYPE_URL))
                 ],
-                function (Player $player, int $option) use ($visitStatus): void {
+                function (Player $player, int $option): void {
                     switch ($option) {
                         case 0:
                             IslandManager::teleportToIsland($player);

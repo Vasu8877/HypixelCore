@@ -16,7 +16,7 @@ class PartnerRemoveForm extends MenuForm
     public function __construct(Player $player)
     {
         $options = [];
-        $islandData = IslandData::get($player->getName());
+        $islandData = IslandData::getSync($player->getName());
         $partners = $islandData ? $islandData->getPartners() : [];
         if (!empty($partners)) {
             foreach ($partners as $partner) {

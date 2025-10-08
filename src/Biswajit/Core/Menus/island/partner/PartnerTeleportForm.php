@@ -15,8 +15,7 @@ class PartnerTeleportForm extends MenuForm
 {
     public function __construct(Player $player)
     {
-        $options = [];
-        IslandData::get($player->getName(), function(?IslandData $islandData) use ($player): void {
+        IslandData::get($player->getName(), function(?IslandData $islandData): void {
         if ($islandData !== null) {
             $partners = $islandData->getPartners();
             if (!empty($partners)) {
