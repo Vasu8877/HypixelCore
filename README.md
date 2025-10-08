@@ -27,7 +27,7 @@ This is a Skyblock plugin for PocketMine-MP, inspired by Hypixel.
 
 - [PocketMine-MP ^5.0](https://github.com/pmmp/PocketMine-MP/releases)
 - [pmforms ^2.1](https://poggit.pmmp.io/p/pmforms)
-- [libasynql ^4.0](https://poggit.pmmp.io/p/libasynql)
+- [libasynql ^4.0](https://poggit.pmmp.io/ci/poggit/libasynql/~)
 - [Customies ^1.4](https://poggit.pmmp.io/r/253427/Customies_dev-64.phar)
 
 ## Installation
