@@ -1,19 +1,20 @@
-name: Feature addition, change, or removal
-description: Propose adding new features, or changing/removing existing ones
-body:
-  - type: textarea
-    attributes:
-      label: Problem description
-      description: Explain why a change is needed
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: Proposed solution
-      description: Describe what changes you think should be made
-    validations:
-      required: true
-  - type: textarea
-    attributes:
-      label: "Alternative solutions or workarounds"
-      description: "Describe other ways you've explored to achieve your goal"
+---
+name: Feature request
+about: Suggest an idea for this project
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+**Is your feature request related to a problem? Please describe.**
+A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
+
+**Describe the solution you'd like**
+A clear and concise description of what you want to happen.
+
+**Describe alternatives you've considered**
+A clear and concise description of any alternative solutions or features you've considered.
+
+**Additional context**
+Add any other context or screenshots about the feature request here.
