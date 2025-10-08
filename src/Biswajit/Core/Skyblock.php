@@ -7,6 +7,8 @@ namespace Biswajit\Core;
 use Biswajit\Core\Managers\BlockManager;
 use Biswajit\Core\Managers\IslandManager;
 use Biswajit\Core\Managers\Worlds\IslandGenerator;
+use Biswajit\Core\Tasks\ActionbarTask;
+use Biswajit\Core\Tasks\StatsRegainTask;
 use Biswajit\Core\Utils\Loader;
 use Biswajit\Core\Utils\Utils;
 use pocketmine\data\bedrock\EnchantmentIdMap;
@@ -65,26 +67,32 @@ class Skyblock extends PluginBase {
 
      BlockManager::initialise();
      IslandManager::initialise();
+     $this->initDatabase();
      
      $world = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
      $world->setTime(1000);
      $world->stopTime();
 
+     $this->getScheduler()->scheduleRepeatingTask(new ActionbarTask(), 10);
+     $this->getScheduler()->scheduleRepeatingTask(new StatsRegainTask(), 100);
+
+
      $rpManager = $this->getServer()->getResourcePackManager();
 	   $rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "Skyblock.mcpack"))]));
 	   (new ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
-
-     $this->initDatabase();
 
      Loader::initialize();
     }
 
     public function onDisable(): void {
       foreach ($this->getServer()->getOnlinePlayers() as $players) {
-        if(!$players instanceof Player) return;
+        foreach ($players as $player) {
+        if(!$player instanceof Player) return;
 
-        $players->sendTitle("§cServer Restarting");
+        $player->sendTitle("§cServer Restarting");
+        $player->save();
        }
+      }
        
        BlockManager::Disable();
     }

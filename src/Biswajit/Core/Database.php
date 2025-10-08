@@ -15,6 +15,7 @@ trait Database
     {
        $db = libasynql::create($this, $this->getConfig()->get('database'), ['mysql' => 'mysql.sql', 'sqlite' => 'sqlite.sql']);
        $db->executeGeneric('skyblockIsland.init');
+       $db->executeGeneric('skyblock.init');
        $db->waitAll();
        $this->dataBase = $db;
     }

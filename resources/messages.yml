@@ -11,7 +11,7 @@
 # No attribution required.
 
 Join: §a[+] {player}
-Quit: $c[-] {player}
+Quit: §c[-] {player}
 Join-Message: "§r§7Welcome, {player} §7to §e{servername}\n\n§7Amazing SkyBlock Experience On Bedrock\n\n§e§lVOTE: {vote}\n§6§lDISCORD: {discord}"
 
 # Island Manager Messages

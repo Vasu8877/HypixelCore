@@ -15,5 +15,18 @@ class Player extends PMMPPlayer {
     protected function initEntity(CompoundTag $nbt) : void {
 
 		parent::initEntity($nbt);
+    $this->loadData();
+    }
+
+    public function damagePlayer(float $amount): void {
+
+      $this->setHealth($this->getHealth() - $amount);
+      $this->doHitAnimation();
+
+      if($this->getHealth() <= 0) {
+         $world = $this->getWorld();
+		  	 $this->teleport($world->getSpawnLocation());
+         $this->setHealth($this->getMaxHealth());
+      }
     }
 }

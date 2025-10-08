@@ -47,12 +47,6 @@ class IslandListener implements Listener
         $player = $event->getPlayer();
         $islandData = IslandData::getSync($player->getName());
 
-        // This is so as to prevent unintended chunk glitches or problems the next time players join.
-        $defaultWorld = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
-        if ($defaultWorld instanceof World) {
-            $player->teleport($defaultWorld->getSafeSpawn());
-        }
-
         if ($islandData !== null) {
             $world = Server::getInstance()->getWorldManager()->getWorldByName($player->getName());
             if ($world instanceof World && Server::getInstance()->getWorldManager()->isWorldLoaded($player->getName())) {
@@ -314,7 +308,10 @@ class IslandListener implements Listener
               ];
 
            if (in_array($event->getCause(), $cancelCauses, true)) {
-              $event->cancel();
+               $event->cancel();
+                if ($level === $player->getName()) {
+                    $player->damagePlayer($event->getFinalDamage() * 2);
+                  }
                }
             }
         }

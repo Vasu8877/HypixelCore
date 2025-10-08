@@ -119,6 +119,6 @@ class BlockManager {
         if (isset(self::$blockStates[$i])) {
 		      unset(self::$blockStates[$i]);
 	    	}
-      }), Skyblock::getInstance()->getConfig()->get("respawn-time"));
+      }), Skyblock::getInstance()->getConfig()->get("RESPAWN-TIME"));
     }
   }

@@ -11,13 +11,16 @@ use Biswajit\Core\Commands\player\VisitCommand;
 use Biswajit\Core\Commands\player\WeatherCommand;
 use Biswajit\Core\Commands\Staff\MultiWorld;
 use Biswajit\Core\Listeners\Entity\EntityDamageByEntity;
+use Biswajit\Core\Listeners\Entity\EntityRegainHealth;
 use Biswajit\Core\Listeners\Entity\EntityTrampleFarmland;
 use Biswajit\Core\Listeners\Inventory\InventoryTransaction;
 use Biswajit\Core\Listeners\Server\IslandListener;
 use Biswajit\Core\Listeners\Player\PlayerCreation;
 use Biswajit\Core\Listeners\Player\PlayerExhaust;
 use Biswajit\Core\Listeners\Player\PlayerJoin;
+use Biswajit\Core\Listeners\Player\PlayerQuit;
 use Biswajit\Core\Listeners\Server\HubListener;
+use Biswajit\Core\Listeners\Server\QueryRegenerate;
 use Biswajit\Core\Skyblock;
 
 class Loader {
@@ -34,13 +37,16 @@ class Loader {
     {
         $listeners = [
              new PlayerJoin(),
+             new PlayerQuit(),
              new PlayerCreation(),
              new IslandListener(),
              new InventoryTransaction(),
              new HubListener(),
              new EntityTrampleFarmland(),
              new EntityDamageByEntity(),
-             new PlayerExhaust()
+             new EntityRegainHealth(),
+             new PlayerExhaust(),
+             new QueryRegenerate()
         ];
 
         foreach ($listeners as $event){
