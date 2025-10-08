@@ -37,6 +37,7 @@ public function onEntityDamage(EntityDamageEvent $event): void
          $event->cancel();
          $world = $entity->getWorld();
          $entity->teleport($world->getSpawnLocation());
+         
      }
 
          $cancelCauses = [
@@ -63,10 +64,17 @@ public function onEntityDamage(EntityDamageEvent $event): void
             return;
         }
 
-      if (API::getHub() === $worldName) {
+      if(API::getHub() !== $worldName) return;
+      
           if($block->getName() === "End Portal") {
-          IslandManager::teleportToIsland($player);
-        }
+             $worldPath = Server::getInstance()->getDataPath() . "worlds/" . $player->getName();
+               if (file_exists($worldPath)) {
+                 IslandManager::teleportToIsland($player);
+                 return;
+           }
+           
+           $player->sendMessage("§cYou Dont Have A Island To Teleport !");
+           $player->teleport($player->getWorld()->getSafeSpawn());
       }
     }
 

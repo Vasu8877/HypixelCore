@@ -1,38 +1,52 @@
----
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+description: Report a feature of SkyblockCore not working as expected
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug description
 
----
+        > [!TIP]
+        > Helpful information to include:
+        > - Steps to reproduce the issue
+        > - Error backtraces
+        > - Crashdumps
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+        > [!IMPORTANT]
+        > **Steps to reproduce are critical to finding the cause of the problem!**
+        > Without reproducing steps, the issue will probably not be solvable and may be closed.
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+  - type: textarea
+    attributes:
+      label: Problem description
+      description: Describe the problem, and how you encountered it
+      placeholder: e.g. Steps to reproduce the issue
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behaviour
+      description: What did you expect to happen?
+    validations:
+      required: true
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+  - type: markdown
+    attributes:
+      value: |
+        ## Version, OS and game info
+        > [!WARNING]
+        > "Latest" is not a valid version.
+        > Failure to fill these fields with valid information may result in your issue being closed.
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+  - type: input
+    attributes:
+      label: Skyblock version
+      placeholder: Use the /about SkyblockCore command in Server
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Server OS
+      placeholder: Use the /version command in PocketMine-MP
+    validations:
+      required: true
