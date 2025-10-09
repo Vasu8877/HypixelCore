@@ -4,11 +4,15 @@ declare(strict_types = 1);
 
 namespace Biswajit\Core\Utils;
 
+use Biswajit\Core\Commands\player\BankCommand;
 use Biswajit\Core\Commands\player\HubCommand;
 use Biswajit\Core\Commands\player\IslandCommand;
 use Biswajit\Core\Commands\player\JoinCommand;
+use Biswajit\Core\Commands\player\TopBankCommand;
+use Biswajit\Core\Commands\player\TopMoneyCommand;
 use Biswajit\Core\Commands\player\VisitCommand;
 use Biswajit\Core\Commands\player\WeatherCommand;
+use Biswajit\Core\Commands\Staff\EconomyCommand;
 use Biswajit\Core\Commands\Staff\MultiWorld;
 use Biswajit\Core\Listeners\Entity\EntityDamageByEntity;
 use Biswajit\Core\Listeners\Entity\EntityRegainHealth;
@@ -62,7 +66,11 @@ class Loader {
             new JoinCommand(),
             new VisitCommand(),
             new HubCommand(),
-            new MultiWorld()
+            new MultiWorld(),
+            new EconomyCommand(),
+            new BankCommand(),
+            new TopBankCommand(),
+            new TopMoneyCommand()
         ];
 
         foreach($commands as $cmd){

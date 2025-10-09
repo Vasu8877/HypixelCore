@@ -8,6 +8,7 @@ use Biswajit\Core\Managers\BlockManager;
 use Biswajit\Core\Managers\IslandManager;
 use Biswajit\Core\Managers\Worlds\IslandGenerator;
 use Biswajit\Core\Tasks\ActionbarTask;
+use Biswajit\Core\Tasks\LoanTask;
 use Biswajit\Core\Tasks\StatsRegainTask;
 use Biswajit\Core\Utils\Loader;
 use Biswajit\Core\Utils\Utils;
@@ -75,7 +76,7 @@ class Skyblock extends PluginBase {
 
      $this->getScheduler()->scheduleRepeatingTask(new ActionbarTask(), 10);
      $this->getScheduler()->scheduleRepeatingTask(new StatsRegainTask(), 100);
-
+     $this->getScheduler()->scheduleRepeatingTask(new LoanTask($this), 100);
 
      $rpManager = $this->getServer()->getResourcePackManager();
 	   $rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "Skyblock.mcpack"))]));
@@ -85,20 +86,17 @@ class Skyblock extends PluginBase {
     }
 
     public function onDisable(): void {
-      foreach ($this->getServer()->getOnlinePlayers() as $players) {
-        foreach ($players as $player) {
-        if(!$player instanceof Player) return;
+      foreach ($this->getServer()->getOnlinePlayers() as $player) {
+        if (!$player instanceof Player) continue;
 
         $player->sendTitle("§cServer Restarting");
         $player->save();
-       }
-      }
-       
-       BlockManager::Disable();
     }
+
+    BlockManager::Disable();
+}
 
     public function addHandler($hander): void {
 		$this->handlers[] = $hander;
 	}
-
 }

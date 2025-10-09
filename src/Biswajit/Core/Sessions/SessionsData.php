@@ -20,7 +20,7 @@ trait SessionsData {
             function (array $rows): void
             {
                 if (count($rows) == 0) {
-                    $this->createPlayer();
+                    $this->createData();
                     return;
                 }
                 $this->data = json_decode($rows[0]['data'], true);
@@ -28,7 +28,7 @@ trait SessionsData {
         );
     }
 
-    public function createPlayer(): void {
+    public function createData(): void {
        Skyblock::getInstance()->getDataBase()->executeInsert(
             'skyblock.create',
             [
@@ -38,7 +38,7 @@ trait SessionsData {
         $this->data = [];
     }
 
-    public function save(): void {
+    public function saveData(): void {
         if (empty($this->data)) return;
 
         Skyblock::getInstance()->getDataBase()->executeChange('skyblock.update', [

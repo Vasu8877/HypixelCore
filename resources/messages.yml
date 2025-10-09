@@ -121,3 +121,48 @@ multiworld:
   info-total-worlds: "§7Total Worlds: §f{COUNT}"
   info-online-players: "§7Online Players: §f{COUNT}"
   info-commands: "§7Available Commands:"
+
+# Economy Command Messages
+economy:
+  description: "§eManage player economy"
+  usage: "/eco <subcommand> [args]"
+
+  no-permission: "§cYou do not have permission to use this command!"
+  console-error: "§cYou must specify a player name when running this command from console!"
+
+  help-title: "§6=== §bEconomy Commands §6==="
+  help-balance: "§7/eco balance [player] §f- View player balance"
+  help-give: "§7/eco give <player> <amount> §f- Give money to player"
+  help-take: "§7/eco take <player> <amount> §f- Take money from player"
+  help-set: "§7/eco set <player> <amount> §f- Set player balance"
+  help-help: "§7/eco help §f- View this help message"
+
+  balance-usage: "§cUsage: /eco balance [player]"
+  balance-self: "§aYour balance: §e{AMOUNT}"
+  balance-other: "§aPlayer {PLAYER} balance: §e{AMOUNT}"
+  balance-player-not-found: "§cPlayer '{PLAYER}' not found!"
+
+  give-usage: "§cUsage: /eco give <player> <amount>"
+  give-success: "§aGave §e{AMOUNT} §ato {PLAYER}"
+  give-player-not-found: "§cPlayer '{PLAYER}' not found!"
+  give-invalid-amount: "§cInvalid amount! Must be a positive number."
+
+  take-usage: "§cUsage: /eco take <player> <amount>"
+  take-success: "§aTook §e{AMOUNT} §afrom {PLAYER}"
+  take-player-not-found: "§cPlayer '{PLAYER}' not found!"
+  take-invalid-amount: "§cInvalid amount! Must be a positive number."
+  take-insufficient-funds: "§cPlayer {PLAYER} doesn't have enough money! Current balance: §e{AMOUNT}"
+
+  set-usage: "§cUsage: /eco set <player> <amount>"
+  set-success: "§aSet {PLAYER} balance to §e{AMOUNT}"
+  set-player-not-found: "§cPlayer '{PLAYER}' not found!"
+  set-invalid-amount: "§cInvalid amount! Must be a non-negative number."
+
+# Bank Messages
+bank:
+  nowithdral: §aYou Don't Have Any Money In The Bank To Withdraw
+  withdraw-seccess: §aSuccessfully Withdraw {AMOUNT} From The Bank
+  wrong-amount: §aEnter the correct number!
+  vaild-amount: §aYou must enter an amount greater than 0
+  nodeposit: §aYou don't have enough money to deposit
+  deposit-seccess: §aSuccessfully Deposit {AMOUNT} To The Bank

@@ -4,11 +4,12 @@ namespace Biswajit\Core\Menus\items;
 
 use Biswajit\Core\Menus\island\IslandOptionsForm;
 use Biswajit\Core\Menus\island\NoIslandForm;
+use Biswajit\Core\Player;
 use Biswajit\Core\Sessions\IslandData;
 use dktapps\pmforms\FormIcon;
 use dktapps\pmforms\MenuForm;
-use pocketmine\player\Player;
 use dktapps\pmforms\MenuOption;
+use pocketmine\player\Player as PlayerPlayer;
 
 class SkyblockMenu extends MenuForm
 {
@@ -16,11 +17,11 @@ class SkyblockMenu extends MenuForm
     {
         $item = $player->getInventory()->getItemInHand();
         $damage = $item->getAttackPoints();
-        $defense = 100 + $player->getArmorPoints();
+        $defense = $player->getDefense() + $player->getArmorPoints();
         $heal = $player->getHealth();
         $maxheal = $player->getMaxHealth();
         $name = $player->getName();
-        parent::__construct("§fSkyblock Menu", "§bHello,\n§e$name\n§d§lSTATS:§r\n\n§cHealth: $heal" . "§7/§c$maxheal \n\n§aDefense: §a$defense \n\n§4Damage: $damage \n§r", [
+        parent::__construct("§fSkyblock Menu", "§bHello,\n§e$name\n\n§d§lSTATS:§r\n\n§cHealth: $heal" . "§7/§c$maxheal \n§aDefense: §a$defense \n§4Damage: $damage \n§r", [
             new MenuOption("§eSKYBLOCK MENU", new FormIcon("textures/icon/island", FormIcon::IMAGE_TYPE_PATH)),
             new MenuOption("§eSHOP MENU", new FormIcon("textures/icon/shop", FormIcon::IMAGE_TYPE_PATH)),
             new MenuOption("§eKIT MENU", new FormIcon("textures/icon/kits", FormIcon::IMAGE_TYPE_PATH)),
@@ -32,7 +33,7 @@ class SkyblockMenu extends MenuForm
             new MenuOption("§ePLAYER VAULT", new FormIcon("textures/icon/safe", FormIcon::IMAGE_TYPE_PATH)),
             new MenuOption("§eBAZAAR", new FormIcon("textures/icon/bazaar", FormIcon::IMAGE_TYPE_PATH)),
             new MenuOption("§eSETTINGS", new FormIcon("textures/icon/settings", FormIcon::IMAGE_TYPE_PATH)),
-        ], function (Player $sender, int $selected): void {
+        ], function (PlayerPlayer $sender, int $selected): void {
             switch ($selected) {
                 case 0:
                     IslandData::get($sender->getName(), function(?IslandData $islandData) use ($sender): void {

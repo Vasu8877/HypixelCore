@@ -1,6 +1,8 @@
 # PHP Composer dependencies
 /vendor/
 
+/wiki/
+
 # Composer PHAR
 composer.phar
 

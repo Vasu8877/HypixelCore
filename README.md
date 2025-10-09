@@ -4,6 +4,8 @@ This is a Skyblock plugin for PocketMine-MP, inspired by Hypixel.
 
 **Important Notice:** This plugin is under development and not ready for use. It is incomplete and may contain bugs or missing features. Do not install it on a production server.
 
+**Support Server:** [Discord](https://discord.gg/zfagCsEJyX)
+
 ## Status
 - Not complete yet.
 - Work in progress.
@@ -13,15 +15,12 @@ This is a Skyblock plugin for PocketMine-MP, inspired by Hypixel.
 
 <img width="1902" height="962" alt="image" src="https://github.com/user-attachments/assets/62eb0b24-3b8a-4a98-9823-895e6eeb4abe" />
 
+## Commands
+- [Commands Wiki](https://github.com/pixelforge-studios-PMMP/SkyblockCore/wiki/Commands)
 
 ## Features
-
-- **Island Creation**: Create your own island with various types including Basic, Beach, Desert, Fantasy, Javanese, Mushroom, Nether, Resort, and Villa.
-- **Island Management**: Manage island settings, players, and partners through intuitive menus.
-- **Player Management**: Ban, kick, or add partners to your island for collaborative gameplay.
-- **Visiting Islands**: Visit other players' islands to explore and interact.
-- **Weather Control**: Customize weather conditions on your island.
 - **Database Support**: Supports both MySQL and SQLite for flexible data storage.
+- **Skyblcok**: This Project Is Inspred By FrostNetwor/Wenpixel/MagicGames.
 
 ## Requirements
 
@@ -29,6 +28,9 @@ This is a Skyblock plugin for PocketMine-MP, inspired by Hypixel.
 - [pmforms ^2.1](https://poggit.pmmp.io/ci/dktapps-pm-pl/pmforms)
 - [libasynql ^4.0](https://poggit.pmmp.io/ci/poggit/libasynql/~)
 - [Customies ^1.4](https://poggit.pmmp.io/r/253427/Customies_dev-64.phar)
+
+## For Dev`s
+- [Wiki](https://github.com/pixelforge-studios-PMMP/SkyblockCore/wiki)
 
 ## Installation
 

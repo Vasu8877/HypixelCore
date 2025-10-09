@@ -54,3 +54,35 @@ UPDATE skyblock SET data=:data WHERE uuid=:uuid;
 -- # }
 
 -- # }
+
+-- #{ economy
+
+-- # { init
+CREATE TABLE IF NOT EXISTS economy (
+    uuid VARCHAR(255) PRIMARY KEY,
+    data TEXT NOT NULL
+);
+-- # }
+
+-- # { load
+-- #   :uuid string
+SELECT data FROM economy WHERE uuid=:uuid;
+-- # }
+
+-- # { loadAll
+SELECT uuid, data FROM economy;
+-- # }
+
+-- # { create
+-- #   :uuid string
+-- #   :data string
+INSERT INTO economy (uuid, data) VALUES (:uuid, :data);
+-- # }
+
+-- # { update
+-- #   :uuid string
+-- #   :data string
+UPDATE economy SET data=:data WHERE uuid=:uuid;
+-- # }
+
+-- # }
