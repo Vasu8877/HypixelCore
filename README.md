@@ -20,7 +20,7 @@ This is a Skyblock plugin for PocketMine-MP, inspired by Hypixel.
 
 ## Features
 - **Database Support**: Supports both MySQL and SQLite for flexible data storage.
-- **Skyblcok**: This Project Is Inspred By FrostNetwor/Wenpixel/MagicGames.
+- **Skyblcok**: This Project Is Inspred By FrostNetwork, Wenpixel, MagicGames.
 
 ## Requirements
 
