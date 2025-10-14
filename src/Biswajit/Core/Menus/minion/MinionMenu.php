@@ -39,11 +39,7 @@ class MinionMenu {
           }
         }elseif($itemOutName === "§r §cRemove §r")
         {
-          try {
           $minion->flagForDespawn();
-          } catch (\Throwable $e) {
-          echo "An error occurred: " . $e->getMessage();
-          }
           $player->removeCurrentWindow();
           $pos = $minion->getPosition();
           foreach(array_reverse($minion->getMinionInventory()->getContents(), true) as $slot => $items)
