@@ -5,6 +5,8 @@
 
 # Composer PHAR
 composer.phar
+composer.json
+composer.lock
 
 # IDE and editor folders
 .idea/
