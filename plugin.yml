@@ -2,7 +2,7 @@ name: SkyblockCore
 version: 0.0.8
 author: Biswajit
 main: Biswajit\Core\Skyblock
-api: 5.0.0
+api: 5.30.0
 description: A Skyblock plugin for PocketMine
 
 permissions:
