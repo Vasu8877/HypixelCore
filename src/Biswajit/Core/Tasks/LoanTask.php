@@ -25,7 +25,7 @@ class LoanTask extends Task
 
     public function checkLoans(): void {
       foreach ($this->source->getServer()->getOnlinePlayers() as $player) {
-         if (BankManager::getLoan($player) == 0 && BankManager::getLoanTime($player) == 0) {
+         if (BankManager::getLoan($player) > 0) {
              if (BankManager::getLoanTime($player) < time()) { 
                 BankManager::recoverLoan($player);
              }

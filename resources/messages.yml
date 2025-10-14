@@ -14,7 +14,7 @@ Join: §a[+] {player}
 Quit: §c[-] {player}
 Join-Message: "§r§7Welcome, {player} §7to §e{servername}\n\n§7Amazing SkyBlock Experience On Bedrock\n\n§e§lVOTE: {vote}\n§6§lDISCORD: {discord}"
 
-no_money: "cYou don't have enough money!"
+no_money: "You don't have enough money!"
 
 # Island Manager Messages
 island-visit-not-active: "cThe player is not active, you cannot visit!"

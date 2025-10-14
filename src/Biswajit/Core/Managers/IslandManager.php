@@ -9,6 +9,7 @@ use Biswajit\Core\Menus\island\partner\PartnerRequestForm;
 use Biswajit\Core\Player;
 use Biswajit\Core\Sessions\IslandData;
 use Biswajit\Core\Skyblock;
+use Biswajit\Core\Tasks\AsynTasks\loadWorldsTask;
 use Biswajit\Core\Utils\Utils;
 use pocketmine\world\World;
 use ZipArchive;
@@ -17,16 +18,16 @@ class IslandManager
 {
     use ManagerBase;
     
-    public function onEnable(): void {
-      $this->getPlugin()->saveResource("island/BasicIsland.zip");
-      $this->getPlugin()->saveResource("island/Beach.zip");
-      $this->getPlugin()->saveResource("island/Desert.zip");
-      $this->getPlugin()->saveResource("island/Fantasty.zip");
-      $this->getPlugin()->saveResource("island/Javanese.zip");
-      $this->getPlugin()->saveResource("island/Musroom.zip");
-      $this->getPlugin()->saveResource("island/NetherIsland.zip");
-      $this->getPlugin()->saveResource("island/Resort.zip");
-      $this->getPlugin()->saveResource("island/Villa.zip");
+    public static function loadIslands(): void
+    {
+        $worldPath = Skyblock::getInstance()->getDataFolder() . "island/Islands.zip"; 
+        if(file_exists($worldPath))
+        {
+            $zip = new ZipArchive();
+            $zip->open($worldPath);
+            $zip->extractTo(Skyblock::getInstance()->getDataFolder() . "island");
+            $zip->close();    
+        }
     }
     
     public static function islandVisit(Player $player, string $selectedPlayer): void

@@ -77,8 +77,8 @@ class PlayerInteract implements Listener
 			"minion_" . $item->getVanillaName(),
 			$skinData,
 			"",
-			$player->getSkin()->getGeometryName(),
-			$player->getSkin()->getGeometryData()
+			"geometry.humanoid.custom",
+			file_get_contents(Skyblock::getInstance()->getDataFolder() . "minion/minion.geo.json")
 		);
 
 		$entity = null;
