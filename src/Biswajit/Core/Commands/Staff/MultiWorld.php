@@ -8,6 +8,7 @@ use Biswajit\Core\API;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use Biswajit\Core\Player;
+use Biswajit\Core\Skyblock;
 use pocketmine\Server;
 use pocketmine\world\WorldCreationOptions;
 
@@ -21,7 +22,7 @@ class MultiWorld extends Command
 
     public function execute(CommandSender $sender, string $commandLabel, array $args): bool {
         if (!$this->testPermission($sender)) {
-            $sender->sendMessage(API::getMessage("multiworld.no-permission"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.no-permission"));
             return false;
         }
 
@@ -61,7 +62,7 @@ class MultiWorld extends Command
 
     private function handleTeleport(CommandSender $sender, array $args): bool {
         if (count($args) < 1) {
-            $sender->sendMessage(API::getMessage("multiworld.tp-usage"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.tp-usage"));
             return false;
         }
 
@@ -103,7 +104,7 @@ class MultiWorld extends Command
         }
 
         if (!$sender instanceof Player) {
-            $sender->sendMessage(API::getMessage("multiworld.console-error"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.console-error"));
             return false;
         }
 
@@ -117,7 +118,7 @@ class MultiWorld extends Command
         $worldManager = Server::getInstance()->getWorldManager();
         $worlds = $worldManager->getWorlds();
         
-        $sender->sendMessage(API::getMessage("multiworld.list-title"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.list-title"));
         
         foreach ($worlds as $world) {
             $name = $world->getFolderName();
@@ -131,7 +132,7 @@ class MultiWorld extends Command
 
     private function handleLoad(CommandSender $sender, array $args): bool {
         if (count($args) < 1) {
-            $sender->sendMessage(API::getMessage("multiworld.load-usage"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.load-usage"));
             return false;
         }
 
@@ -159,7 +160,7 @@ class MultiWorld extends Command
 
     private function handleUnload(CommandSender $sender, array $args): bool {
         if (count($args) < 1) {
-            $sender->sendMessage(API::getMessage("multiworld.unload-usage"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.unload-usage"));
             return false;
         }
 
@@ -189,8 +190,8 @@ class MultiWorld extends Command
 
     private function handleCreate(CommandSender $sender, array $args): bool {
         if (count($args) < 1) {
-            $sender->sendMessage(API::getMessage("multiworld.create-usage"));
-            $sender->sendMessage(API::getMessage("multiworld.create-types"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.create-usage"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.create-types"));
             return false;
         }
 
@@ -229,7 +230,7 @@ class MultiWorld extends Command
 
     private function handleDelete(CommandSender $sender, array $args): bool {
         if (count($args) < 1) {
-            $sender->sendMessage(API::getMessage("multiworld.delete-usage"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.delete-usage"));
             return false;
         }
 
@@ -278,10 +279,10 @@ class MultiWorld extends Command
             }
         }
         
-        $sender->sendMessage(API::getMessage("multiworld.worlds-title"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.worlds-title"));
         
         if (empty($allWorldNames)) {
-            $sender->sendMessage(API::getMessage("multiworld.worlds-no-worlds"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.worlds-no-worlds"));
             return true;
         }
         
@@ -299,10 +300,10 @@ class MultiWorld extends Command
         $server = Server::getInstance();
         $players = $server->getOnlinePlayers();
         
-        $sender->sendMessage(API::getMessage("multiworld.players-title"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.players-title"));
         
         if (empty($players)) {
-            $sender->sendMessage(API::getMessage("multiworld.players-no-players"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.players-no-players"));
             return true;
         }
         
@@ -318,18 +319,18 @@ class MultiWorld extends Command
         $server = Server::getInstance();
         $worldManager = $server->getWorldManager();
         
-        $sender->sendMessage(API::getMessage("multiworld.info-title"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.info-title"));
         $sender->sendMessage(str_replace("{COUNT}", (string)count($worldManager->getWorlds()), API::getMessage("multiworld.info-total-worlds")));
         $sender->sendMessage(str_replace("{COUNT}", (string)count($server->getOnlinePlayers()), API::getMessage("multiworld.info-online-players")));
-        $sender->sendMessage(API::getMessage("multiworld.info-commands"));
-        $sender->sendMessage(API::getMessage("multiworld.help-tp"));
-        $sender->sendMessage(API::getMessage("multiworld.help-list"));
-        $sender->sendMessage(API::getMessage("multiworld.help-load"));
-        $sender->sendMessage(API::getMessage("multiworld.help-unload"));
-        $sender->sendMessage(API::getMessage("multiworld.help-create"));
-        $sender->sendMessage(API::getMessage("multiworld.help-delete"));
-        $sender->sendMessage(API::getMessage("multiworld.help-worlds"));
-        $sender->sendMessage(API::getMessage("multiworld.help-players"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.info-commands"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-tp"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-list"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-load"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-unload"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-create"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-delete"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-worlds"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-players"));
         
         return true;
     }
@@ -352,16 +353,16 @@ class MultiWorld extends Command
     }
 
     private function sendHelp(CommandSender $sender): void {
-        $sender->sendMessage(API::getMessage("multiworld.help-title"));
-        $sender->sendMessage(API::getMessage("multiworld.help-tp"));
-        $sender->sendMessage(API::getMessage("multiworld.help-list"));
-        $sender->sendMessage(API::getMessage("multiworld.help-load"));
-        $sender->sendMessage(API::getMessage("multiworld.help-unload"));
-        $sender->sendMessage(API::getMessage("multiworld.help-create"));
-        $sender->sendMessage(API::getMessage("multiworld.help-delete"));
-        $sender->sendMessage(API::getMessage("multiworld.help-worlds"));
-        $sender->sendMessage(API::getMessage("multiworld.help-players"));
-        $sender->sendMessage(API::getMessage("multiworld.help-info"));
-        $sender->sendMessage(API::getMessage("multiworld.help-help"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-title"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-tp"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-list"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-load"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-unload"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-create"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-delete"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-worlds"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-players"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-info"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("multiworld.help-help"));
     }
 }

@@ -10,7 +10,7 @@ use poggit\libasynql\DataConnector;
 class IslandData
 {
     private string $islandName;
-    private array $data = [];
+    private array $data;
     private DataConnector $db;
     private static array $cache = [];
 
@@ -93,40 +93,9 @@ class IslandData
         $this->save();
     }
 
-    public function getMembers(): array
-    {
-        return $this->data['members'] ?? [];
-    }
-
-    public function addMember(string $member): void
-    {
-        $members = $this->getMembers();
-        if (!in_array($member, $members)) {
-            $members[] = $member;
-            $this->data['members'] = $members;
-            $this->save();
-        }
-    }
-
-    public function removeMember(string $member): void
-    {
-        $members = $this->getMembers();
-        if (($key = array_search($member, $members)) !== false) {
-            unset($members[$key]);
-            $this->data['members'] = array_values($members);
-            $this->save();
-        }
-    }
-
     public function getData(): array
     {
         return $this->data;
-    }
-
-    public function setData(array $data): void
-    {
-        $this->data = $data;
-        $this->save();
     }
 
     private function save(): void

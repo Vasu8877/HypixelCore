@@ -14,10 +14,13 @@ use Biswajit\Core\Commands\player\VisitCommand;
 use Biswajit\Core\Commands\player\WeatherCommand;
 use Biswajit\Core\Commands\Staff\EconomyCommand;
 use Biswajit\Core\Commands\Staff\MultiWorld;
+use Biswajit\Core\Entitys\Minion\MinionEntity;
+use Biswajit\Core\Entitys\Minion\types\MinerMinion;
 use Biswajit\Core\Listeners\Entity\EntityDamageByEntity;
 use Biswajit\Core\Listeners\Entity\EntityRegainHealth;
 use Biswajit\Core\Listeners\Entity\EntityTrampleFarmland;
 use Biswajit\Core\Listeners\Inventory\InventoryTransaction;
+use Biswajit\Core\Listeners\Player\PlayerInteract;
 use Biswajit\Core\Listeners\Server\IslandListener;
 use Biswajit\Core\Listeners\Player\PlayerCreation;
 use Biswajit\Core\Listeners\Player\PlayerExhaust;
@@ -26,6 +29,11 @@ use Biswajit\Core\Listeners\Player\PlayerQuit;
 use Biswajit\Core\Listeners\Server\HubListener;
 use Biswajit\Core\Listeners\Server\QueryRegenerate;
 use Biswajit\Core\Skyblock;
+use pocketmine\entity\EntityDataHelper;
+use pocketmine\entity\EntityFactory;
+use pocketmine\entity\Human;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\world\World;
 
 class Loader {
 
@@ -33,6 +41,7 @@ class Loader {
     {
         self::loadListeners();
         self::loadCommands();
+		self::loadEntitys();
         ItemLoader::initialize();
         BlockLoader::initialize();
     }
@@ -50,7 +59,8 @@ class Loader {
              new EntityDamageByEntity(),
              new EntityRegainHealth(),
              new PlayerExhaust(),
-             new QueryRegenerate()
+             new QueryRegenerate(),
+			 new PlayerInteract()
         ];
 
         foreach ($listeners as $event){
@@ -80,5 +90,17 @@ class Loader {
         $count = count($commands);
         Skyblock::getInstance()->getLogger()->info("§c{$count}§f command register !");
     }
+
+	public static function loadEntitys(): void
+	{
+		EntityFactory::getInstance()->register(MinionEntity::class, function(World $world, CompoundTag $nbt): MinionEntity{
+			return new MinionEntity(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
+		}, ["entity:MinionEntity", 'MinionEntity']);
+
+		EntityFactory::getInstance()->register(MinerMinion::class, function(World $world, CompoundTag $nbt): MinerMinion{
+			return new MinerMinion(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
+		}, ["entity:MinerMinion", 'MinerMinion']);
+
+	}
 
 }

@@ -7,6 +7,7 @@ namespace Biswajit\Core\Commands\Staff;
 use Biswajit\Core\API;
 use Biswajit\Core\Managers\EconomyManager;
 use Biswajit\Core\Player;
+use Biswajit\Core\Skyblock;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 
@@ -21,7 +22,7 @@ class EconomyCommand extends Command
     public function execute(CommandSender $sender, string $commandLabel, array $args): bool
     {
         if (!$this->testPermission($sender)) {
-            $sender->sendMessage(API::getMessage("economy.no-permission"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.no-permission"));
             return false;
         }
 
@@ -53,7 +54,7 @@ class EconomyCommand extends Command
     {
         if (count($args) === 0) {
             if (!$sender instanceof Player) {
-                $sender->sendMessage(API::getMessage("economy.console-error"));
+                $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.console-error"));
                 return false;
             }
             $amount = EconomyManager::getMoney($sender);
@@ -76,7 +77,7 @@ class EconomyCommand extends Command
     private function handleGive(CommandSender $sender, array $args): bool
     {
         if (count($args) < 2) {
-            $sender->sendMessage(API::getMessage("economy.give-usage"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.give-usage"));
             return false;
         }
 
@@ -84,7 +85,7 @@ class EconomyCommand extends Command
         $amount = $args[1];
 
         if (!is_numeric($amount) || $amount <= 0) {
-            $sender->sendMessage(API::getMessage("economy.give-invalid-amount"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.give-invalid-amount"));
             return false;
         }
 
@@ -102,7 +103,7 @@ class EconomyCommand extends Command
     private function handleTake(CommandSender $sender, array $args): bool
     {
         if (count($args) < 2) {
-            $sender->sendMessage(API::getMessage("economy.take-usage"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.take-usage"));
             return false;
         }
 
@@ -110,7 +111,7 @@ class EconomyCommand extends Command
         $amount = $args[1];
 
         if (!is_numeric($amount) || $amount <= 0) {
-            $sender->sendMessage(API::getMessage("economy.take-invalid-amount"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.take-invalid-amount"));
             return false;
         }
 
@@ -134,7 +135,7 @@ class EconomyCommand extends Command
     private function handleSet(CommandSender $sender, array $args): bool
     {
         if (count($args) < 2) {
-            $sender->sendMessage(API::getMessage("economy.set-usage"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.set-usage"));
             return false;
         }
 
@@ -142,7 +143,7 @@ class EconomyCommand extends Command
         $amount = $args[1];
 
         if (!is_numeric($amount) || $amount < 0) {
-            $sender->sendMessage(API::getMessage("economy.set-invalid-amount"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.set-invalid-amount"));
             return false;
         }
 
@@ -159,11 +160,11 @@ class EconomyCommand extends Command
 
     private function sendHelp(CommandSender $sender): void
     {
-        $sender->sendMessage(API::getMessage("economy.help-title"));
-        $sender->sendMessage(API::getMessage("economy.help-balance"));
-        $sender->sendMessage(API::getMessage("economy.help-give"));
-        $sender->sendMessage(API::getMessage("economy.help-take"));
-        $sender->sendMessage(API::getMessage("economy.help-set"));
-        $sender->sendMessage(API::getMessage("economy.help-help"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.help-title"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.help-balance"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.help-give"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.help-take"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.help-set"));
+        $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.help-help"));
     }
 }

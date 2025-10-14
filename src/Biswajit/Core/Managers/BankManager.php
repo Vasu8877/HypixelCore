@@ -71,7 +71,8 @@ class BankManager {
   public static function recoverLoan(Player $player): void {
     $player->setEconomy("bank-money", 0);
     EconomyManager::setMoney($player, 0);
-    //todo panish the player
+    $player->setEconomy("bank-merit", 0);
+    //todo punish the player
   }
 
   public static function getTransactions(Player $player): array {

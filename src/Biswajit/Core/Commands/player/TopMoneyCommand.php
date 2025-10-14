@@ -20,7 +20,7 @@ class TopMoneyCommand extends Command
     public function execute(CommandSender $sender, string $commandLabel, array $args): bool
     {
         if (!$this->testPermission($sender)) {
-            $sender->sendMessage(API::getMessage("economy.no-permission"));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("economy.no-permission"));
             return false;
         }
 

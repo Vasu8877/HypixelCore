@@ -3,12 +3,15 @@
     "description": "Skyblock plugin for PocketMine",
     "type": "pocketmine-plugin",
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.2",
         "pocketmine/pocketmine-mp": "^5.0",
         "dktapps/pmforms": "^2.1",
         "sof3/libasynql": "^4.0",
-        "customiesdevs/customies": "dev-main"
-    },
+        "customiesdevs/customies": "dev-main",
+        "muqsit/invmenu": "^4.7",
+		"ext-zip": "*",
+		"ext-gd": "*"
+	},
     "autoload": {
         "psr-4": {
             "Biswajit\\": "src/Biswajit/"

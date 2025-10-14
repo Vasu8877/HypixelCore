@@ -5,6 +5,7 @@ namespace Biswajit\Core\Menus\bank;
 use Biswajit\Core\API;
 use Biswajit\Core\Managers\BankManager;
 use Biswajit\Core\Managers\EconomyManager;
+use Biswajit\Core\Skyblock;
 use dktapps\pmforms\FormIcon;
 use dktapps\pmforms\MenuForm;
 use dktapps\pmforms\MenuOption;
@@ -23,7 +24,7 @@ class WithdrawalMenu extends MenuForm
             switch ($selected) {
                 case 0:
                   if (BankManager::getBankMoney($sender) == 0){
-                     $sender->sendMessage(API::getMessage("bank.nowithdral"));
+                     $sender->sendMessage(Skyblock::$prefix . API::getMessage("bank.nowithdral"));
                      return;
                     }
 
@@ -33,7 +34,7 @@ class WithdrawalMenu extends MenuForm
                     break;
                 case 1:
                  if (BankManager::getBankMoney($sender) === 0){
-                     $sender->sendMessage(API::getMessage("bank.nowithdral"));
+                     $sender->sendMessage(Skyblock::$prefix . API::getMessage("bank.nowithdral"));
                      return;
                     }
 

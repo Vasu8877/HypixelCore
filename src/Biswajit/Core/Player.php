@@ -15,9 +15,8 @@ class Player extends PMMPPlayer {
     use EconomySession;
 
     protected function initEntity(CompoundTag $nbt) : void {
-
 		parent::initEntity($nbt);
-    $this->Load();
+        $this->Load();
     }
 
     public function damagePlayer(float $amount): void {

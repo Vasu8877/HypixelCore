@@ -8,6 +8,7 @@ use pocketmine\item\Item;
 use pocketmine\item\StringToItemParser;
 use pocketmine\Server;
 use pocketmine\utils\Config;
+use ZipArchive;
 
 class API {
 
@@ -27,6 +28,15 @@ class API {
     }
   }
 
+  public static function loadMinionSkins(): void
+  {
+	  $Path = Skyblock::getInstance()->getDataFolder() . "minion/minion.zip";
+	  $zip = new ZipArchive();
+	  $zip->open($Path);
+	  $zip->extractTo(Skyblock::getInstance()->getDataFolder() . "minion");
+	  $zip->close();
+  }
+
   public static function getHub(): string {
     return Skyblock::getInstance()->getConfig()->get("HUB");
   }
@@ -36,8 +46,8 @@ class API {
     return $File->getNested($key);
   }
 
-  public static function getItem(string $name): Item {
-    $item = StringToItemParser::getInstance()->parse($name);
-    return $item;
+  public static function getItem(string $identifier): Item {
+	  $name = "skyblock:$identifier";
+	  return StringToItemParser::getInstance()->parse($name);
   }
 }

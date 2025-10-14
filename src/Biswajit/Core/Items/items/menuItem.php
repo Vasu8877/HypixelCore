@@ -8,6 +8,7 @@ use Biswajit\Core\Items\skyblockItems;
 use Biswajit\Core\Menus\items\SkyblockMenu;
 use customiesdevs\customies\item\ItemComponentsTrait;
 use customiesdevs\customies\item\ItemComponents;
+use pocketmine\item\ItemTypeIds;
 use pocketmine\item\ItemUseResult;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\math\Vector3;
@@ -18,7 +19,7 @@ class menuItem extends skyblockItems implements ItemComponents{
 
     public function __construct()
     {
-        parent::__construct(new ItemIdentifier(1000), "skyblockMenu");
+        parent::__construct(new ItemIdentifier(ItemTypeIds::newId()), "skyblockMenu");
         $this->initComponent("skyblock_menu");
 		$this->setCustomName("§r§aSkyblock Menu §7( Right Click )§r");
         $this->addGlow();

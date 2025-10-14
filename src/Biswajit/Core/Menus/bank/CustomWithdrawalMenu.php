@@ -7,6 +7,7 @@ namespace Biswajit\Core\Menus\bank;
 use Biswajit\Core\API;
 use Biswajit\Core\Managers\BankManager;
 use Biswajit\Core\Managers\EconomyManager;
+use Biswajit\Core\Skyblock;
 use pocketmine\player\Player;
 use dktapps\pmforms\CustomForm;
 use dktapps\pmforms\CustomFormResponse;
@@ -27,22 +28,22 @@ class CustomWithdrawalMenu extends CustomForm
                 $input = $response->getString("amount");
 
             if (BankManager::getBankMoney($player) == 0){
-                $player->sendMessage(API::getMessage("bank.nowithdral"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("bank.nowithdral"));
                 return;
             }
 
             if (BankManager::getBankMoney($player) < $input){
-                $player->sendMessage(API::getMessage("bank.nowithdral"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("bank.nowithdral"));
                 return;
             }
 
             if (!is_numeric($input)){
-                $player->sendMessage(API::getMessage("bank.wrong-amount"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("bank.wrong-amount"));
                 return;
             }
 
             if ($input <= 0){
-                $player->sendMessage(API::getMessage("bank.vaild-amount"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("bank.vaild-amount"));
                 return;
             }
 

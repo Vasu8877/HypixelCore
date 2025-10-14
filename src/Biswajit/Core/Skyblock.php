@@ -12,6 +12,7 @@ use Biswajit\Core\Tasks\LoanTask;
 use Biswajit\Core\Tasks\StatsRegainTask;
 use Biswajit\Core\Utils\Loader;
 use Biswajit\Core\Utils\Utils;
+use muqsit\invmenu\InvMenuHandler;
 use pocketmine\data\bedrock\EnchantmentIdMap;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\plugin\PluginBase;
@@ -20,6 +21,7 @@ use pocketmine\Server;
 use pocketmine\utils\SingletonTrait;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\generator\GeneratorManager;
+use ReflectionException;
 use ReflectionProperty;
 use Symfony\Component\Filesystem\Path;
 
@@ -42,7 +44,9 @@ class Skyblock extends PluginBase {
         EnchantmentIdMap::getInstance()->register(self::FAKE_ENCH_ID, new Enchantment("Glow", 1, 0xffff, 0x0, 1));
         
         @mkdir($this->getDataFolder() . "island");
+		@mkdir($this->getDataFolder() . "minion");
         $this->saveResource("HUB.zip");
+		$this->saveResource("minion/minion.zip");
         $this->saveResource("messages.yml");
         $this->saveResource("Skyblock.mcpack");
 
@@ -62,13 +66,19 @@ class Skyblock extends PluginBase {
        }
     }
 
-    public function onEnable(): void {
+	/**
+	 * @throws ReflectionException
+	 */
+	public function onEnable(): void {
 
      $this->getServer()->getNetwork()->setName($this->getConfig()->get("SERVER-MOTD"));
 
      BlockManager::initialise();
      IslandManager::initialise();
+
      $this->initDatabase();
+
+	 API::loadMinionSkins();
      
      $world = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
      $world->setTime(1000);
@@ -80,9 +90,13 @@ class Skyblock extends PluginBase {
 
      $rpManager = $this->getServer()->getResourcePackManager();
 	   $rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "Skyblock.mcpack"))]));
-	   (new ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
+		(new ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
 
      Loader::initialize();
+
+		if(!InvMenuHandler::isRegistered()) {
+			InvMenuHandler::register($this);
+		}
     }
 
     public function onDisable(): void {
@@ -96,7 +110,7 @@ class Skyblock extends PluginBase {
     BlockManager::Disable();
 }
 
-    public function addHandler($hander): void {
-		$this->handlers[] = $hander;
+    public function addHandler($handler): void {
+		$this->handlers[] = $handler;
 	}
 }
