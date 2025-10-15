@@ -6,8 +6,11 @@ namespace Biswajit\Core;
 
 use pocketmine\item\Item;
 use pocketmine\item\StringToItemParser;
+use pocketmine\resourcepacks\ZippedResourcePack;
 use pocketmine\Server;
 use pocketmine\utils\Config;
+use ReflectionProperty;
+use Symfony\Component\Filesystem\Path;
 use ZipArchive;
 
 class API {
@@ -81,6 +84,25 @@ class API {
       $zip->extractTo(Skyblock::getInstance()->getDataFolder() . "minion");
       $zip->close();
     }
+  }
+
+  /**
+   * Applies a resource pack to the server
+   */
+  public static function applyResourcePack(): void {
+    $path = Skyblock::getInstance()->getDataFolder() . "skyblockPack.zip";
+    if (!file_exists($path)) return;
+
+    $rpManager = Skyblock::getInstance()->getServer()->getResourcePackManager();
+    
+    foreach ($rpManager->getResourceStack() as $pack) {
+      if ($pack instanceof ZippedResourcePack && $pack->getPath() === Path::join(Skyblock::getInstance()->getDataFolder(), "skyblockPack.zip")) {
+        return;
+      }
+    }
+    
+    $rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join(Skyblock::getInstance()->getDataFolder(), "skyblockPack.zip"))]));
+    (new ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
   }
 
   /**

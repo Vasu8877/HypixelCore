@@ -3,6 +3,7 @@
 namespace Biswajit\Core\Listeners\Player;
 
 use Biswajit\Core\API;
+use Biswajit\Core\Entitys\Minion\types\FarmerMinion;
 use Biswajit\Core\Entitys\Minion\types\MinerMinion;
 use Biswajit\Core\Items\items\minionHeads;
 use Biswajit\Core\Skyblock;
@@ -69,6 +70,11 @@ class PlayerInteract implements Listener
 			"coal ore" => "minion/coal.png",
 			"lapis lazuli ore" => "minion/lapis.png",
 			"redstone ore" => "minion/redstone.png",
+			"carrot" => "minion/carrot.png",
+			"potato" => "minion/potato.png",
+			"wheat seeds" => "minion/wheat.png",
+			"melon" => "minion/melon.png",
+			"pumpkin" => "minion/pumpkin.png",
 			default => "minion/minion.png"
 		};
 
@@ -85,6 +91,9 @@ class PlayerInteract implements Listener
 		switch ($item->getType()) {
 			case "Miner":
 				$entity = new MinerMinion($location, $skin, $nbt);
+				break;
+			case "Farmer":
+			    $entity = new FarmerMinion($location, $skin, $nbt);
 				break;
 		}
 

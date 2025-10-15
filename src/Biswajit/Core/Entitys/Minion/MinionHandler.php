@@ -40,7 +40,12 @@ trait MinionHandler {
     "lapis lazulie ore" => array(13, 71, 161),
     "diamond ore" => array(102, 255, 255),
     "emerald ore" => array(102, 255, 102),
-    "redstone ore" => array(244, 67, 54)
+    "redstone ore" => array(244, 67, 54),
+    "wheat" => array(255, 224, 130),
+    "pumpkin" => array(255, 167, 38),
+    "melon" => array(76, 175, 80),
+    "carrot" => array(161, 137, 79),
+    "potato" => array(165, 155, 62)
     );
 
   public function getInvSize(int $level): int {
@@ -114,11 +119,11 @@ trait MinionHandler {
   }
 
   public function getSpeedInSeconds(int $level): int {
-    if ($level === 1) $speed = 35;
-    if ($level === 2) $speed = 30;
-    if ($level === 3) $speed = 25;
-    if ($level === 4) $speed = 20;
-    if ($level === 5) $speed = 15;
+    if ($level === 1) $speed = 30;
+    if ($level === 2) $speed = 25;
+    if ($level === 3) $speed = 20;
+    if ($level === 4) $speed = 15;
+    if ($level === 5) $speed = 10;
     return $speed;
   }
 

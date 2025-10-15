@@ -28,5 +28,10 @@ class ItemLoader {
 	     $factory->registerItem(fn() => clone new minionHeads("redstone_minion", "redstone ore", "Miner"), "skyblock:redstone_dust", null);
 	     $factory->registerItem(fn() => clone new minionHeads("diamond_minion", "diamond ore", "Miner"), "skyblock:diamond", null);
 	     $factory->registerItem(fn() => clone new minionHeads("emerald_minion", "emerald ore", "Miner"), "skyblock:emerald", null);
+       $factory->registerItem(fn() => clone new minionHeads("carrot_minion", "carrot", "Farmer"), "skyblock:carrot", null);
+       $factory->registerItem(fn() => clone new minionHeads("potato_minion", "potato", "Farmer"), "skyblock:potato", null);
+       $factory->registerItem(fn() => clone new minionHeads("wheat_minion", "wheat", "Farmer"), "skyblock:wheat", null);
+       $factory->registerItem(fn() => clone new minionHeads("melon_minion", "melon", "Farmer"), "skyblock:melon", null);
+       $factory->registerItem(fn() => clone new minionHeads("pumpkin_minion", "pumpkin", "Farmer"), "skyblock:pumpkin", null);
     }
 }

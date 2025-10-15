@@ -7,7 +7,7 @@ namespace Biswajit\Core;
 use Biswajit\Core\Managers\BlockManager;
 use Biswajit\Core\Managers\Worlds\IslandGenerator;
 use Biswajit\Core\Tasks\ActionbarTask;
-use Biswajit\Core\Tasks\AsynTasks\loadWorldsTask;
+use Biswajit\Core\Tasks\AsynTasks\loadDataTask;
 use Biswajit\Core\Tasks\LoanTask;
 use Biswajit\Core\Tasks\StatsRegainTask;
 use Biswajit\Core\Utils\Loader;
@@ -16,13 +16,11 @@ use muqsit\invmenu\InvMenuHandler;
 use pocketmine\data\bedrock\EnchantmentIdMap;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\plugin\PluginBase;
-use pocketmine\resourcepacks\ZippedResourcePack;
 use pocketmine\utils\SingletonTrait;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\generator\GeneratorManager;
 use ReflectionException;
-use ReflectionProperty;
-use Symfony\Component\Filesystem\Path;
+
 
 class Skyblock extends PluginBase {
 
@@ -42,21 +40,30 @@ class Skyblock extends PluginBase {
         $worlds = [
             "hub" => [
                 "url" => "https://github.com/pixelforge-studios-PMMP/SkyblockCoreWorlds/releases/download/Worlds/HUB.zip",
-                "path" => $this->getDataFolder() . "HUB.zip"
+                "path" => $this->getDataFolder() . "HUB.zip",
+                "type" => "hub"
             ],
             "islands" => [
                 "url" => "https://github.com/pixelforge-studios-PMMP/SkyblockCoreWorlds/releases/download/Worlds/Islands.zip", 
-                "path" => $this->getDataFolder() . "island" . DIRECTORY_SEPARATOR . "Islands.zip"
+                "path" => $this->getDataFolder() . "island" . DIRECTORY_SEPARATOR . "Islands.zip",
+                "type" => "island"
+            ],
+            "pack" => [
+                "url" => "https://github.com/pixelforge-studios-PMMP/SkyblockCorePack/releases/download/pack/skyblockPack.zip",
+                "path" => $this->getDataFolder() . "skyblockPack.zip",
+                "type" => "pack"
             ]
         ];
 
         foreach ($worlds as $name => $data) {
+            if (!file_exists($data["path"])) {
             try {
                 $this->getLogger()->info("Downloading " . $name . " world...");
-                $this->getServer()->getAsyncPool()->submitTask(new loadWorldsTask($data["url"], $data["path"]));
+                $this->getServer()->getAsyncPool()->submitTask(new loadDataTask($data["url"], $data["path"], $data["type"]));
             } catch (\Exception $e) {
                 $this->getLogger()->error("Failed to download " . $name . " world: " . $e->getMessage());
             }
+          }
         }
 
         GeneratorManager::getInstance()->addGenerator(IslandGenerator::class, "void", fn() => null, true);
@@ -87,14 +94,11 @@ class Skyblock extends PluginBase {
 	 API::loadMinionSkins();
      API::loadHubWorld();
      API::setHubTime();
+     API::applyResourcePack();
 
      $this->getScheduler()->scheduleRepeatingTask(new ActionbarTask(), 10);
      $this->getScheduler()->scheduleRepeatingTask(new StatsRegainTask(), 100);
      $this->getScheduler()->scheduleRepeatingTask(new LoanTask($this), 100);
-
-     $rpManager = $this->getServer()->getResourcePackManager();
-	 $rpManager->setResourceStack(array_merge($rpManager->getResourceStack(), [new ZippedResourcePack(Path::join($this->getDataFolder(), "Skyblock.mcpack"))]));
-	 (new ReflectionProperty($rpManager, "serverForceResources"))->setValue($rpManager, true);
 
      Loader::initialize();
 

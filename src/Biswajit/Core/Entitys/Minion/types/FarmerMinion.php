@@ -6,18 +6,22 @@ namespace Biswajit\Core\Entitys\Minion\types;
 
 use Biswajit\Core\API;
 use Biswajit\Core\Entitys\Minion\MinionEntity;
+use Biswajit\Core\Skyblock;
 use Biswajit\Core\Utils\Utils;
 use pocketmine\block\Block;
 use pocketmine\block\BlockTypeIds;
+use pocketmine\block\Crops;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\item\Item;
 use pocketmine\item\StringToItemParser;
 use pocketmine\item\VanillaItems;
+use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\AnimatePacket;
+use pocketmine\scheduler\ClosureTask;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\particle\BlockBreakParticle;
 
-class MinerMinion extends MinionEntity {
+class FarmerMinion extends MinionEntity {
   private const SEARCH_RADIUS = 2;
 
   public function onTick(): void {
@@ -34,6 +38,7 @@ class MinerMinion extends MinionEntity {
 
   private function validateMiningArea(): bool {
     $block = $this->getBlock();
+    if ($this->target === null) return false;
     $isValidArea = $this->target->getTypeId() === BlockTypeIds::AIR || $this->target->getTypeId() === $block->getTypeId();
 
     if (!$isValidArea) {
@@ -58,8 +63,17 @@ class MinerMinion extends MinionEntity {
 
   private function placeBlock(): void {
     $block = $this->getBlock();
+    $targetPos = $this->target->getPosition()->subtract(0, 1, 0);
+
+    $DirtId = $this->getWorld()->getBlock($targetPos)->getTypeId();
+    if ($DirtId !== BlockTypeIds::FARMLAND)
+    {
+      $this->getWorld()->setBlock($targetPos, VanillaBlocks::FARMLAND());
+    }
+
     $this->getWorld()->setBlock($this->target->getPosition(), $block);
     $this->lookAt($this->target->getPosition());
+    $this->growCrop($block, $this->target->getPosition());
     $this->target = null;
   }
 
@@ -69,7 +83,7 @@ class MinerMinion extends MinionEntity {
     
     $block = $this->getBlock();
     $this->getWorld()->setBlock($this->target->getPosition(), VanillaBlocks::AIR());
-    $this->addItem($block->getDrops(VanillaItems::DIAMOND_PICKAXE()));
+    $this->addItem($block->getDrops(VanillaItems::DIAMOND_HOE()));
     $this->target = null;
   }
 
@@ -92,48 +106,57 @@ class MinerMinion extends MinionEntity {
 
   private function scanSurroundingBlocks(): array {
     $validBlocks = [];
-    $targetBlockId = $this->getTargetId();
+    $targetBlockId = $this->getBlock()->getName();
 
     for ($x = -self::SEARCH_RADIUS; $x <= self::SEARCH_RADIUS; $x++) {
       for ($z = -self::SEARCH_RADIUS; $z <= self::SEARCH_RADIUS; $z++) {
         if ($x === 0 && $z === 0) continue;
 
-        $block = $this->getWorld()->getBlock($this->getPosition()->add($x, -1, $z));
-        $blockId = strtolower($block->getName());
+        $block = $this->getWorld()->getBlock($this->getPosition()->add($x, 0, $z));
+        $blockId = $block->getName();
 
-        if ($blockId === "air" || $blockId === $targetBlockId) {
+ 
+        if ($blockId === "Air" || $blockId === $targetBlockId) {
           $validBlocks[] = $block;
-          $this->canWork = true;
-        } else {
-          $this->canWork = false;
-        }
       }
     }
+  }
 
     return $validBlocks;
   }
 
+  private function growCrop(Block $block, Vector3 $position): void {
+    Skyblock::getInstance()->getScheduler()->scheduleDelayedTask(new ClosureTask(function() use ($block, $position): void {
+      if ($block instanceof Crops && $block->getAge() < $block->getMaxAge()) {
+        $newBlock = clone $block;
+        $newBlock->setAge($block::MAX_AGE);
+        $this->getWorld()->setBlock($position, $newBlock, true);
+      }
+    }), 60);
+  }
+
   private function getBlock(): Block {
-    return StringToItemParser::getInstance()->parse($this->getTargetId())->getBlock();
+    $targetId = $this->getTargetId();
+    return match(strtolower($targetId)) {
+      "wheat" => VanillaBlocks::WHEAT(),
+      "melon" => VanillaBlocks::MELON(),
+      "pumpkin" => VanillaBlocks::PUMPKIN(),
+      "carrot" => VanillaBlocks::CARROTS(),
+      "potato" => VanillaBlocks::POTATOES(),
+      default => StringToItemParser::getInstance()->parse($targetId)->getBlock()
+    };
   }
 
   public function getEgg(): Item {
-    $block = $this->getBlock();
-    $items = $block->getDrops(VanillaItems::DIAMOND_PICKAXE());
-
-    foreach ($items as $item) {
-      return $this->createMinionItem($item);
-    }
-
-    return VanillaItems::AIR();
+    return $this->createMinionItem(ucfirst($this->getTargetId()));
   }
 
-  private function createMinionItem(Item $item): Item {
-    $itemName = strtolower($item->getName());
+  private function createMinionItem(string $item): Item {
+    $itemName = strtolower($item);
     $name = str_replace(' ', '_', $itemName);
     $minionItem = API::getItem($name);
     
-    $minionItem->setCustomName($this->formatMinionName($item->getName()))->setLore($this->getMinionLore());
+    $minionItem->setCustomName($this->formatMinionName($item))->setLore($this->getMinionLore());
     
     $minionItem->getNamedTag()->setTag("Information", $this->minionInfo);
     return $minionItem;
@@ -155,6 +178,6 @@ class MinerMinion extends MinionEntity {
   }
 
   public function setUp(): void {
-    $this->getInventory()->setItemInHand(VanillaItems::WOODEN_PICKAXE());
+    $this->getInventory()->setItemInHand(VanillaItems::WOODEN_HOE());
   }
 }

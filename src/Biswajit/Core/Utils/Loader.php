@@ -15,6 +15,7 @@ use Biswajit\Core\Commands\player\WeatherCommand;
 use Biswajit\Core\Commands\Staff\EconomyCommand;
 use Biswajit\Core\Commands\Staff\MultiWorld;
 use Biswajit\Core\Entitys\Minion\MinionEntity;
+use Biswajit\Core\Entitys\Minion\types\FarmerMinion;
 use Biswajit\Core\Entitys\Minion\types\MinerMinion;
 use Biswajit\Core\Listeners\Entity\EntityDamageByEntity;
 use Biswajit\Core\Listeners\Entity\EntityRegainHealth;
@@ -100,6 +101,10 @@ class Loader {
 		EntityFactory::getInstance()->register(MinerMinion::class, function(World $world, CompoundTag $nbt): MinerMinion{
 			return new MinerMinion(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
 		}, ["entity:MinerMinion", 'MinerMinion']);
+
+        EntityFactory::getInstance()->register(FarmerMinion::class, function(World $world, CompoundTag $nbt): FarmerMinion{
+			return new FarmerMinion(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
+		}, ["entity:FarmerMinion", 'FarmerMinion']);
 
 	}
 
