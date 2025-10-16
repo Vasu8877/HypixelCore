@@ -45,7 +45,13 @@ trait MinionHandler {
     "pumpkin" => array(255, 167, 38),
     "melon" => array(76, 175, 80),
     "carrot" => array(161, 137, 79),
-    "potato" => array(165, 155, 62)
+    "potato" => array(165, 155, 62),
+    "oak log" => array(88, 6, 52),
+    "dark oak log" => array(6, 8, 8),
+    "spruce log" => array(30, 136, 229),
+    "birch log" => array(152, 12, 92),
+    "jungle log" => array(6, 188, 0),
+    "acacia log" => array(148, 87, 146)
     );
 
   public function getInvSize(int $level): int {

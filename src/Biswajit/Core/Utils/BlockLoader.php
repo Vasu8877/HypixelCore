@@ -65,6 +65,7 @@ class BlockLoader {
 
     /**
 	 * @param string[] $stringToItemParserNames
+	 * @noinspection PhpDeprecationInspection
 	 */
 	private static function registerSimpleBlock(string $id, Block $block, array $stringToItemParserNames) : void{
 		RuntimeBlockStateRegistry::getInstance()->register($block);

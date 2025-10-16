@@ -32,7 +32,7 @@ database:
 
 HUB: Hub
 
-PREFIX: §l§6SKYBLOCK§r §l§a»§r §e
+PREFIX: "§l§6SKYBLOCK§r §l§a»§r " 
 SERVER-MOTD: §eYour Motd
 
 SERVER-NAME: §eYour Server

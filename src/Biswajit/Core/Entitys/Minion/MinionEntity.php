@@ -56,8 +56,11 @@ class MinionEntity extends Human implements MinionInterface {
     $this->getArmorInventory()->setBoots(VanillaItems::LEATHER_BOOTS()->setCustomColor(new Color($colour[0], $colour[1], $colour[2])));
     $this->setUp();
     $this->setNameTag("");
+    $this->setNameTagAlwaysVisible(true);
     $this->setScale(0.6);
   }
+
+  //Todo: Offline Calculation Plan On Future!!
 
    public function onUpdate(int $currentTick): bool {
     $update = parent::onUpdate($currentTick);

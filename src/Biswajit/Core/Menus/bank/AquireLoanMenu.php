@@ -4,8 +4,10 @@ declare(strict_types = 1);
 
 namespace Biswajit\Core\Menus\bank;
 
+use Biswajit\Core\API;
 use Biswajit\Core\Managers\BankManager;
 use Biswajit\Core\Managers\EconomyManager;
+use Biswajit\Core\Skyblock;
 use Biswajit\Core\Utils\Utils;
 use pocketmine\player\Player;
 use dktapps\pmforms\CustomForm;
@@ -30,28 +32,28 @@ class AquireLoanMenu extends CustomForm
                 $result2 = $response->getInt("dropdown");
 
                 if($result1 > $maxAquiring) {
-                    $player->sendMessage("§cYou can't aquire §e$result1");
+                    $player->sendMessage(Skyblock::$prefix . API::getMessage("loan-aquire-invalid", ["{amount}" => (string)$result1]));
                     return;
                 }
 
                 if($result1 < 1) {
-                    $player->sendMessage("§cYou can't aquire §e$result1");
+                    $player->sendMessage(Skyblock::$prefix . API::getMessage("loan-aquire-invalid", ["{amount}" => (string)$result1]));
                     return;
                 }
-        
+
                 if(BankManager::getLoanMerit($player) < 50) {
-                    $player->sendMessage("§cYour merit is less than 50");
+                    $player->sendMessage(Skyblock::$prefix . API::getMessage("loan-merit-low"));
                     return;
                 }
 
                 if(BankManager::getLoan($player) > 0) {
-                    $player->sendMessage("§cYou have already aquired a loan");
+                    $player->sendMessage(Skyblock::$prefix . API::getMessage("loan-already"));
                     return;
                 }
 
               BankManager::addLoan($player, $result1);
               EconomyManager::addMoney($player, $result1);
-              $player->sendMessage("§aSuccsesfully Given Loan Off $result1");
+              $player->sendMessage(Skyblock::$prefix . API::getMessage("loan-success-aquire", ["{amount}" => (string)$result1]));
               $array = array("1 Hour", "10 Hour", "1 day", "2 Day");
               if($array[$result2] === "1 Hour")
               {

@@ -14,7 +14,8 @@ Join: §a[+] {player}
 Quit: §c[-] {player}
 Join-Message: "§r§7Welcome, {player} §7to §e{servername}\n\n§7Amazing SkyBlock Experience On Bedrock\n\n§e§lVOTE: {vote}\n§6§lDISCORD: {discord}"
 
-no_money: "You don't have enough money!"
+no_money: "§cYou don't have enough money!"
+void-teleport: "§cYou fall into void and lose §a{amount}!"
 
 # Island Manager Messages
 island-visit-not-active: "cThe player is not active, you cannot visit!"
@@ -168,3 +169,33 @@ bank:
   vaild-amount: §aYou must enter an amount greater than 0
   nodeposit: §aYou don't have enough money to deposit
   deposit-seccess: §aSuccessfully Deposit {AMOUNT} To The Bank
+
+# Additional Messages
+player-death: "§cYou died and lost §e{amount} §cof your money!"
+interest-received: "§r §aRecieved §e{interest}% §ainsterest in your bank account"
+minion-upgraded: "§aUpgraded Your Minion To Level {level}"
+loan-error-number: "§cError Please Enter A Number"
+loan-error-pay: "§cError Can't Pay §e{amount}"
+loan-no-loan: "§cError You Haven't Aquired Loan"
+loan-error-unable: "§cError Unable To Pay §e{amount}"
+loan-no-money: "§cError You Don't Have §e{amount} §cIn Your Purse"
+loan-success: "§cSuccessfully Payed A Total Of §e{amount}"
+loan-aquire-invalid: "§cYou can't aquire §e{amount}"
+loan-merit-low: "§cYour merit is less than 50"
+loan-already: "§cYou have already aquired a loan"
+loan-success-aquire: "§cSuccessfully Given Loan Off {amount}"
+death-xp-loss: "§cUnfortunately, you died in adana and lost §7({xp}) XP §c experience level."
+no-island-teleport: "§cYou Dont Have A Island To Teleport !"
+command-in-game: "Use this command in-game"
+no-island-create: "§bYou Don't Have An Island, §eCreate An Island With /is"
+island-create-progress: "§bYour island is being created.."
+jerry-teleport: "§aSuccessfully teleported Jerry to you!"
+island-required: "§cYou must be on your island to do this!"
+weather-restart: "§cYou cannot change it until the server is restarted!"
+weather-rainy: "§bWeather set to rainy!"
+weather-lightning: "§bWeather set to lightning!"
+weather-night: "§bWeather set to night!"
+weather-day: "§bWeather set to day!"
+weather-not-on-island: "§cYou must be on the island to use this feature!"
+partner-decline: "§bYou did not accept the partner offer!"
+partner-decline-notify: "§bPartnership did not accept your offer!"

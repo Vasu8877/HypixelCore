@@ -58,7 +58,7 @@ class MinionMenu {
                   EconomyManager::subtractMoney($player, $minion->getLevel() * 60000);
                   $minion->setLevel($New_Level);
                   $player->removeCurrentWindow();
-                  $player->sendMessage("§aUpgraded Your Minion To Level $New_Level");
+                  $player->sendMessage(Skyblock::$prefix . API::getMessage("minion-upgraded", ["{level}" => (string)$New_Level]));
                   $contents = $minion->getMinionInventory()->getContents();
                   unset($minion->minionInv);                 
                   $size = $minion->getInvSize($New_Level);

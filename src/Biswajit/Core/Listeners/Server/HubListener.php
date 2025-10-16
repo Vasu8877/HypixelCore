@@ -6,8 +6,10 @@ namespace Biswajit\Core\Listeners\Server;
 
 use Biswajit\Core\API;
 use Biswajit\Core\Managers\BlockManager;
+use Biswajit\Core\Managers\EconomyManager;
 use Biswajit\Core\Managers\IslandManager;
 use Biswajit\Core\Player;
+use Biswajit\Core\Skyblock;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\block\BlockPlaceEvent;
@@ -37,7 +39,10 @@ public function onEntityDamage(EntityDamageEvent $event): void
          $event->cancel();
          $world = $entity->getWorld();
          $entity->teleport($world->getSpawnLocation());
-         
+         $amount =  ((float)50 / 100) * EconomyManager::getMoney($entity);
+         EconomyManager::subtractMoney($entity, $amount);
+         $entity->sendMessage(Skyblock::$prefix . API::getMessage("void-teleport", ["{amount}" => (string)$amount]));
+         return;
      }
 
          $cancelCauses = [

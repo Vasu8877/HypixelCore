@@ -126,9 +126,13 @@ class API {
   /**
    * Gets a message from messages.yml
    */
-  public static function getMessage(string $key): string {
+  public static function getMessage(string $key, array $replace = []): string {
     $file = new Config(Skyblock::getInstance()->getDataFolder() . "messages.yml", Config::YAML, []);
-    return $file->getNested($key) ?? "Message '$key' not found";
+    $message = $file->getNested($key) ?? "Message '$key' not found";
+    foreach ($replace as $search => $value) {
+      $message = str_replace($search, $value, $message);
+    }
+    return $message;
   }
 
   /**

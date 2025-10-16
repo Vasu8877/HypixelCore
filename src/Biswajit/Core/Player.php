@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace Biswajit\Core;
 
+use Biswajit\Core\Managers\EconomyManager;
 use Biswajit\Core\Sessions\EconomySession;
 use Biswajit\Core\Sessions\SessionsData;
 use pocketmine\nbt\tag\CompoundTag;
@@ -28,6 +29,9 @@ class Player extends PMMPPlayer {
          $world = $this->getWorld();
 		  	 $this->teleport($world->getSpawnLocation());
          $this->setHealth($this->getMaxHealth());
+         $amount =  ((float)50 / 100) * EconomyManager::getMoney($this);
+         EconomyManager::subtractMoney($this, $amount);
+         $this->sendMessage(Skyblock::$prefix . API::getMessage("player-death", ["{amount}" => (string)$amount]));
       }
     }
 

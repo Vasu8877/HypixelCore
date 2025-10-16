@@ -4,6 +4,7 @@ namespace Biswajit\Core\Listeners\Player;
 
 use Biswajit\Core\API;
 use Biswajit\Core\Entitys\Minion\types\FarmerMinion;
+use Biswajit\Core\Entitys\Minion\types\ForagingMinion;
 use Biswajit\Core\Entitys\Minion\types\MinerMinion;
 use Biswajit\Core\Items\items\minionHeads;
 use Biswajit\Core\Skyblock;
@@ -75,6 +76,12 @@ class PlayerInteract implements Listener
 			"wheat seeds" => "minion/wheat.png",
 			"melon" => "minion/melon.png",
 			"pumpkin" => "minion/pumpkin.png",
+			"acacia log" => "minion/acacia.png",
+			"birch log" => "minion/birch.png",
+			"dark oak log" => "minion/dark_oak.png",
+			"jungle log" => "minion/jungle.png",
+			"oak log" => "minion/oak.png",
+			"spruce log" => "minion/spruce.png",
 			default => "minion/minion.png"
 		};
 
@@ -94,6 +101,9 @@ class PlayerInteract implements Listener
 				break;
 			case "Farmer":
 			    $entity = new FarmerMinion($location, $skin, $nbt);
+				break;
+			case "Forager":
+				$entity = new ForagingMinion($location, $skin, $nbt);
 				break;
 		}
 

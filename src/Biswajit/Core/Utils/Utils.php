@@ -6,7 +6,6 @@ namespace Biswajit\Core\Utils;
 
 use Biswajit\Core\Player;
 use Biswajit\Core\Skyblock;
-use GdImage;
 use pocketmine\item\Item;
 use pocketmine\math\Vector3;
 

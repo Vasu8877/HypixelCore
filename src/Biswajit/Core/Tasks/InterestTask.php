@@ -2,6 +2,7 @@
 
 namespace Biswajit\Core\Tasks;
 
+use Biswajit\Core\API;
 use Biswajit\Core\Managers\BankManager;
 use Biswajit\Core\Player;
 use Biswajit\Core\Skyblock;
@@ -39,7 +40,7 @@ class InterestTask extends Task
         $player = Server::getInstance()->getPlayerExact($this->player);
         if($player instanceof Player)
         {
-          $player->sendMessage(" §aRecieved §e$interest% §ainsterest in your bank account");
+          $player->sendMessage(Skyblock::$prefix . API::getMessage("interest-received", ["{interest}" => (string)$interest]));
         }
       }else{
         $this->firstTime = false;

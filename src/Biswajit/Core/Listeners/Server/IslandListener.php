@@ -6,6 +6,7 @@ namespace Biswajit\Core\Listeners\Server;
 
 use Biswajit\Core\API;
 use Biswajit\Core\Managers\IslandManager;
+use Biswajit\Core\Skyblock;
 use Biswajit\Core\Utils\Utils;
 use Biswajit\Core\Sessions\IslandData;
 use Biswajit\Core\Player;
@@ -282,9 +283,10 @@ class IslandListener implements Listener
 
             if($level === API::getHub()) return;
             
-            if ($level === $player->getName()) {
                 if ($event->getCause() === EntityDamageEvent::CAUSE_VOID) {
+
                     $world = Server::getInstance()->getWorldManager()->getWorldByName($player->getName());
+
                     if (!$world instanceof World) {
                         return;
                     }
@@ -292,11 +294,15 @@ class IslandListener implements Listener
                     $event->cancel();
 
                     $player->teleport($world->getSpawnLocation());
+
+                if($level === $player->getName()) {
                     if ($player->getXpManager()->getXpLevel() >= 7) {
+                        $xp = 7;
                         $player->getXpManager()->setXpLevel($player->getXpManager()->getXpLevel() - 7);
-                        $player->sendMessage("§8» §cUnfortunately, you died in adana and lost §7(%3) XP §c experience level.");
+                        $player->sendMessage(Skyblock::$prefix . API::getMessage("death-xp-loss", ["{xp}" => (string)$xp]));
                     }
                 }
+            }
 
                 $cancelCauses = [
                  EntityDamageEvent::CAUSE_FALL,
@@ -311,9 +317,8 @@ class IslandListener implements Listener
                $event->cancel();
                 if ($level === $player->getName()) {
                     $player->damagePlayer($event->getFinalDamage() * 2);
-                  }
-               }
-            }
+                 }
+             }  
         }
     }
 }
