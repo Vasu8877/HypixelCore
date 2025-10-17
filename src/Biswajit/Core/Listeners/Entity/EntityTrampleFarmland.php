@@ -15,10 +15,11 @@ class EntityTrampleFarmland implements Listener {
         $player = $event->getEntity();
         $worldName = $player->getWorld()->getFolderName();
         
-        if(!$player instanceof Player) return;
-        
-        if($worldName === $player->getName()) return;
-
+        if($player instanceof Player && $worldName !== $player->getName()) {
           $event->cancel();
+          return;
+        }
+
+         $event->cancel();
       }
  }

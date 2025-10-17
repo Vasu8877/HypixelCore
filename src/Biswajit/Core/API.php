@@ -4,6 +4,9 @@ declare(strict_types = 1);
 
 namespace Biswajit\Core;
 
+use Biswajit\Core\Entitys\Minion\MinionEntity;
+use finfo;
+use pocketmine\entity\Living;
 use pocketmine\item\Item;
 use pocketmine\item\StringToItemParser;
 use pocketmine\resourcepacks\ZippedResourcePack;
@@ -126,6 +129,19 @@ class API {
     return $array;
   }
 
+  public static function getMinions(World $world): array{
+    $array = array();
+    $entities = $world->getEntities();
+    foreach($entities as $entity)
+    {
+      if($entity instanceof MinionEntity)
+      {
+        $array[] = $entity;
+      }
+    }
+    return $array;
+  }
+
   /**
    * Sets and freezes hub world time
    */
@@ -135,6 +151,39 @@ class API {
       $world->setTime(1000);
       $world->stopTime();
     }
+  }
+
+  public static function getSkinPath(string $vanillaName): string {
+    return match ($vanillaName) {
+			"cobblestone" => "minion/cobblestone.png",
+			"emerald ore" => "minion/emerald.png",
+			"diamond ore" => "minion/diamond.png",
+			"gold ore" => "minion/gold.png",
+			"iron ore" => "minion/iron.png",
+			"coal ore" => "minion/coal.png",
+			"lapis lazuli ore" => "minion/lapis.png",
+			"redstone ore" => "minion/redstone.png",
+			"carrot" => "minion/carrot.png",
+			"potato" => "minion/potato.png",
+			"wheat seeds" => "minion/wheat.png",
+			"melon" => "minion/melon.png",
+			"pumpkin" => "minion/pumpkin.png",
+			"acacia log" => "minion/acacia.png",
+			"birch log" => "minion/birch.png",
+			"dark oak log" => "minion/dark_oak.png",
+			"jungle log" => "minion/jungle.png",
+			"oak log" => "minion/oak.png",
+			"spruce log" => "minion/spruce.png",
+			"cow" => "minion/cow.png",
+			"pig" => "minion/pig.png",
+			"sheep" => "minion/sheep.png",
+			"chicken" => "minion/chicken.png",
+			"zombie" => "minion/zombie.png",
+			"skeleton" => "minion/skeleton.png",
+			"spider" => "minion/spider.png",
+			"creeper" => "minion/creeper.png",
+			default => "minion/minion.png"
+		};
   }
 
   /**

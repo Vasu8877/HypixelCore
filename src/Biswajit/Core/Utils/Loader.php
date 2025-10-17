@@ -19,6 +19,7 @@ use Biswajit\Core\Entitys\Minion\MinionEntity;
 use Biswajit\Core\Entitys\Minion\types\FarmerMinion;
 use Biswajit\Core\Entitys\Minion\types\ForagingMinion;
 use Biswajit\Core\Entitys\Minion\types\MinerMinion;
+use Biswajit\Core\Entitys\Minion\types\SlayerMinion;
 use Biswajit\Core\Entitys\Vanilla\Chicken;
 use Biswajit\Core\Entitys\Vanilla\Cow;
 use Biswajit\Core\Entitys\Vanilla\Creeper;
@@ -127,6 +128,10 @@ class Loader {
         EntityFactory::getInstance()->register(ForagingMinion::class, function(World $world, CompoundTag $nbt): ForagingMinion{
 			return new ForagingMinion(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
 		}, ["entity:ForagingMinion", 'ForagingMinion']);
+
+        EntityFactory::getInstance()->register(SlayerMinion::class, function(World $world, CompoundTag $nbt): SlayerMinion{
+			return new SlayerMinion(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
+		}, ["entity:SlayerMinion", 'SlayerMinion']);
 
         EntityFactory::getInstance()->register(Zombie::class, function(World $world, CompoundTag $nbt): Zombie{
 			return new Zombie(EntityDataHelper::parseLocation($nbt, $world), $nbt);

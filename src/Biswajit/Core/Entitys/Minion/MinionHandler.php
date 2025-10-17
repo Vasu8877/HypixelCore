@@ -29,8 +29,8 @@ trait MinionHandler {
 
   protected bool $canWork = true;
 
-  /** @var Block|Null */
-  public ?Block $target = null;
+  /** @var mixed */
+  public mixed $target = null;
 
   public const ARMOR = array(
     "cobblestone" => array(255, 255, 255),
@@ -51,7 +51,15 @@ trait MinionHandler {
     "spruce log" => array(30, 136, 229),
     "birch log" => array(152, 12, 92),
     "jungle log" => array(6, 188, 0),
-    "acacia log" => array(148, 87, 146)
+    "acacia log" => array(148, 87, 146),
+    "zombie" => array(22, 120, 82),
+    "skeleton" => array(224, 224, 224),
+    "chicken" => array(255, 255, 255),
+    "creeper" => array(0, 255, 9),
+    "cow" => array(43, 28, 10),
+    "pig" => array(185, 109, 148),
+    "spider" => array(185, 109, 148),
+    "sheep" => array(209, 252, 247)
     );
 
   public function getInvSize(int $level): int {

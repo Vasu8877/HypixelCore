@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Biswajit\Core\Pathfinder;
 
+use Biswajit\Core\Entitys\Vanilla\Spider;
 use Biswajit\Core\Entitys\Vanilla\VanillaEntity;
 use IvanCraft623\Pathfinder\Path;
 use IvanCraft623\Pathfinder\PathFinder;
@@ -87,9 +88,17 @@ class AsyncPathfinder {
 
                 $facing = $this->entity->getHorizontalFacing();
                 $frontBlock = $location->getWorld()->getBlock($location->add(0, 0.5, 0)->getSide($facing));
-                if(!$frontBlock->canBeFlowedInto()) {
-                    $motion->y = 0.42 + $this->entity->getGravity();
-                    $this->jumpTicks = 5;
+                if (!$frontBlock->canBeFlowedInto()) {
+                    if ($this->entity instanceof Spider) {
+                        $motion->y = 0.42 + $this->entity->getGravity();
+                        $this->jumpTicks = 5;
+                    } else {
+                        $aboveBlock = $location->getWorld()->getBlock($location->add(0, 1.5, 0)->getSide($facing));
+                        if ($aboveBlock->canBeFlowedInto()) {
+                            $motion->y = 0.42 + $this->entity->getGravity();
+                            $this->jumpTicks = 5;
+                        }
+                    }
                 }
 
                 $this->entity->setMotion($motion);

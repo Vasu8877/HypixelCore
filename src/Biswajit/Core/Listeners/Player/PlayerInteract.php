@@ -6,6 +6,7 @@ use Biswajit\Core\API;
 use Biswajit\Core\Entitys\Minion\types\FarmerMinion;
 use Biswajit\Core\Entitys\Minion\types\ForagingMinion;
 use Biswajit\Core\Entitys\Minion\types\MinerMinion;
+use Biswajit\Core\Entitys\Minion\types\SlayerMinion;
 use Biswajit\Core\Items\items\minionHeads;
 use Biswajit\Core\Skyblock;
 use Biswajit\Core\Utils\Utils;
@@ -30,9 +31,15 @@ class PlayerInteract implements Listener
 		$block = $event->getBlock();
 		$position = $block->getPosition();
 
-		if($block->getTypeId() === BlockTypeIds::ITEM_FRAME && $world === API::getHub()) return;
+		if($block->getTypeId() === BlockTypeIds::ITEM_FRAME && $world->getFolderName() !== $player->getWorld()->getFolderName()) return;
 
 		if (!($item instanceof minionHeads)) return;
+
+		/*TODO: get count from player data!
+		if(count(API::getMinions($world)) >= 15) {
+           $player->sendMessage("§cCan,t place more than 15 Minion!");
+		   return;
+		}*/
 
 		$location = new Location(
 			$position->getX() + 0.5,
@@ -62,28 +69,7 @@ class PlayerInteract implements Listener
 				);
 		}
 
-		$skinDataPath = match ($item->getVanillaName()) {
-			"cobblestone" => "minion/cobblestone.png",
-			"emerald ore" => "minion/emerald.png",
-			"diamond ore" => "minion/diamond.png",
-			"gold ore" => "minion/gold.png",
-			"iron ore" => "minion/iron.png",
-			"coal ore" => "minion/coal.png",
-			"lapis lazuli ore" => "minion/lapis.png",
-			"redstone ore" => "minion/redstone.png",
-			"carrot" => "minion/carrot.png",
-			"potato" => "minion/potato.png",
-			"wheat seeds" => "minion/wheat.png",
-			"melon" => "minion/melon.png",
-			"pumpkin" => "minion/pumpkin.png",
-			"acacia log" => "minion/acacia.png",
-			"birch log" => "minion/birch.png",
-			"dark oak log" => "minion/dark_oak.png",
-			"jungle log" => "minion/jungle.png",
-			"oak log" => "minion/oak.png",
-			"spruce log" => "minion/spruce.png",
-			default => "minion/minion.png"
-		};
+		$skinDataPath = API::getSkinPath($item->getVanillaName());
 
 		$skinData = Utils::createSkin(Skyblock::getInstance()->getDataFolder() . $skinDataPath);
 		$skin = new Skin(
@@ -105,6 +91,10 @@ class PlayerInteract implements Listener
 			case "Forager":
 				$entity = new ForagingMinion($location, $skin, $nbt);
 				break;
+			case "Slayer":
+				$entity = new SlayerMinion($location, $skin, $nbt);
+				break;
+			
 		}
 
 		$entity->spawnToAll();

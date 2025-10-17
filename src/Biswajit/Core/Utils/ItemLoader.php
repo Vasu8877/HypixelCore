@@ -39,5 +39,13 @@ class ItemLoader {
        $factory->registerItem(fn() => clone new minionHeads("jungle_minion", "jungle log", "Forager"), "skyblock:jungle_log", null);
        $factory->registerItem(fn() => clone new minionHeads("oak_minion", "oak log", "Forager"), "skyblock:oak_log", null);
        $factory->registerItem(fn() => clone new minionHeads("spruce_minion", "spruce log", "Forager"), "skyblock:spruce_log", null);
+       $factory->registerItem(fn() => clone new minionHeads("cow_minion", "cow", "Slayer"), "skyblock:cow", null);
+       $factory->registerItem(fn() => clone new minionHeads("pig_minion", "pig", "Slayer"), "skyblock:pig", null);
+       $factory->registerItem(fn() => clone new minionHeads("sheep_minion", "sheep", "Slayer"), "skyblock:sheep", null);
+       $factory->registerItem(fn() => clone new minionHeads("chicken_minion", "chicken", "Slayer"), "skyblock:chicken", null);
+       $factory->registerItem(fn() => clone new minionHeads("zombie_minion", "zombie", "Slayer"), "skyblock:zombie", null);
+       $factory->registerItem(fn() => clone new minionHeads("skeleton_minion", "skeleton", "Slayer"), "skyblock:skeleton", null);
+       $factory->registerItem(fn() => clone new minionHeads("spider_minion", "spider", "Slayer"), "skyblock:spider", null);
+       $factory->registerItem(fn() => clone new minionHeads("creeper_minion", "creeper", "Slayer"), "skyblock:creeper", null);
     }
 }
