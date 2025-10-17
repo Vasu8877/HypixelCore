@@ -14,4 +14,7 @@ projects:
      - src: muqsit/InvMenu/InvMenu
        branch: pm5
        version: ^4.7.3 
+     - src: IvanCraft623/Pahtfinder/pathfinder
+       version: ^0.0.3
+       branch: main
 ...

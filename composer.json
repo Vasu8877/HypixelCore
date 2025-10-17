@@ -8,6 +8,7 @@
         "dktapps/pmforms": "^2.1",
         "sof3/libasynql": "^4.0",
         "muqsit/invmenu": "^4.7",
+        "ivancraft623/pathfinder": "dev-main",
 		"ext-zip": "*",
 		"ext-gd": "*"
 	},
@@ -29,5 +30,11 @@
         "sort-packages": true
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/IvanCraft623/Pahtfinder"
+        }
+    ]
 }

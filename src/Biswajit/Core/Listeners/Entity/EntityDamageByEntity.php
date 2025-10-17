@@ -20,9 +20,21 @@ class EntityDamageByEntity implements Listener {
             $event->cancel();
          }
 
-	if ($event->getCause() === EntityDamageEvent::CAUSE_STARVATION) {
-        $event->cancel();
-      }
-     }
-   }
+	      if ($event->getCause() === EntityDamageEvent::CAUSE_STARVATION) {
+           $event->cancel();
+        }
+
+      if (!$entity instanceof Player) return;
+
+      if ($event->getCause() === EntityDamageEvent::CAUSE_PROJECTILE) {
+          $deltaX = $entity->getPosition()->x - $damager->getPosition()->x;
+		      $deltaZ = $entity->getPosition()->z - $damager->getPosition()->z;
+           if ($entity->isOnline()) {
+		            $entity->knockBack($deltaX, $deltaZ, $event->getKnockback());
+                $entity->damagePlayer($event->getFinalDamage());
+              }
+              $event->cancel();
+          }
+       }
+    }
  }

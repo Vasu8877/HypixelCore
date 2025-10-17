@@ -14,10 +14,20 @@ use Biswajit\Core\Commands\player\VisitCommand;
 use Biswajit\Core\Commands\player\WeatherCommand;
 use Biswajit\Core\Commands\Staff\EconomyCommand;
 use Biswajit\Core\Commands\Staff\MultiWorld;
+use Biswajit\Core\Commands\Staff\SetEntityCommand;
 use Biswajit\Core\Entitys\Minion\MinionEntity;
 use Biswajit\Core\Entitys\Minion\types\FarmerMinion;
 use Biswajit\Core\Entitys\Minion\types\ForagingMinion;
 use Biswajit\Core\Entitys\Minion\types\MinerMinion;
+use Biswajit\Core\Entitys\Vanilla\Chicken;
+use Biswajit\Core\Entitys\Vanilla\Cow;
+use Biswajit\Core\Entitys\Vanilla\Creeper;
+use Biswajit\Core\Entitys\Vanilla\Pig;
+use Biswajit\Core\Entitys\Vanilla\Sheep;
+use Biswajit\Core\Entitys\Vanilla\Skeleton;
+use Biswajit\Core\Entitys\Vanilla\Spider;
+use Biswajit\Core\Entitys\Vanilla\Zombie;
+use Biswajit\Core\Listeners\Entity\EntityAttackEvent;
 use Biswajit\Core\Listeners\Entity\EntityDamageByEntity;
 use Biswajit\Core\Listeners\Entity\EntityRegainHealth;
 use Biswajit\Core\Listeners\Entity\EntityTrampleFarmland;
@@ -31,6 +41,10 @@ use Biswajit\Core\Listeners\Player\PlayerQuit;
 use Biswajit\Core\Listeners\Server\HubListener;
 use Biswajit\Core\Listeners\Server\QueryRegenerate;
 use Biswajit\Core\Skyblock;
+use Biswajit\Core\Tasks\ActionbarTask;
+use Biswajit\Core\Tasks\EntitySpawnerTask;
+use Biswajit\Core\Tasks\LoanTask;
+use Biswajit\Core\Tasks\StatsRegainTask;
 use pocketmine\entity\EntityDataHelper;
 use pocketmine\entity\EntityFactory;
 use pocketmine\entity\Human;
@@ -44,6 +58,7 @@ class Loader {
         self::loadListeners();
         self::loadCommands();
 		self::loadEntitys();
+        self::loadTasks();
         ItemLoader::initialize();
         BlockLoader::initialize();
     }
@@ -62,7 +77,8 @@ class Loader {
              new EntityRegainHealth(),
              new PlayerExhaust(),
              new QueryRegenerate(),
-			 new PlayerInteract()
+			 new PlayerInteract(),
+             new EntityAttackEvent()
         ];
 
         foreach ($listeners as $event){
@@ -82,7 +98,8 @@ class Loader {
             new EconomyCommand(),
             new BankCommand(),
             new TopBankCommand(),
-            new TopMoneyCommand()
+            new TopMoneyCommand(),
+            new SetEntityCommand()
         ];
 
         foreach($commands as $cmd){
@@ -111,6 +128,46 @@ class Loader {
 			return new ForagingMinion(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
 		}, ["entity:ForagingMinion", 'ForagingMinion']);
 
+        EntityFactory::getInstance()->register(Zombie::class, function(World $world, CompoundTag $nbt): Zombie{
+			return new Zombie(EntityDataHelper::parseLocation($nbt, $world), $nbt);
+		}, ["entity:Zombie", 'Zombie']);
+
+        EntityFactory::getInstance()->register(Skeleton::class, function(World $world, CompoundTag $nbt): Skeleton{
+			return new Skeleton(EntityDataHelper::parseLocation($nbt, $world), $nbt);
+		}, ["entity:Skeleton", 'Skeleton']);
+
+        EntityFactory::getInstance()->register(Creeper::class, function(World $world, CompoundTag $nbt): Creeper{
+			return new Creeper(EntityDataHelper::parseLocation($nbt, $world), $nbt);
+		}, ["entity:Creeper", 'Creeper']);
+
+        EntityFactory::getInstance()->register(Spider::class, function(World $world, CompoundTag $nbt): Spider{
+			return new Spider(EntityDataHelper::parseLocation($nbt, $world), $nbt);
+		}, ["entity:Spider", 'Spider']);
+
+        EntityFactory::getInstance()->register(Pig::class, function(World $world, CompoundTag $nbt): Pig{
+			return new Pig(EntityDataHelper::parseLocation($nbt, $world), $nbt);
+		}, ["entity:Pig", 'Pig']);
+
+        EntityFactory::getInstance()->register(Cow::class, function(World $world, CompoundTag $nbt): Cow{
+			return new Cow(EntityDataHelper::parseLocation($nbt, $world), $nbt);
+		}, ["entity:Cow", 'Cow']);
+
+        EntityFactory::getInstance()->register(Sheep::class, function(World $world, CompoundTag $nbt): Sheep{
+			return new Sheep(EntityDataHelper::parseLocation($nbt, $world), $nbt);
+		}, ["entity:Sheep", 'Sheep']);
+
+        EntityFactory::getInstance()->register(Chicken::class, function(World $world, CompoundTag $nbt): Chicken{
+			return new Chicken(EntityDataHelper::parseLocation($nbt, $world), $nbt);
+		}, ["entity:Chicken", 'Chicken']);
+
 	}
+
+  public static function loadTasks(): void
+    {
+        Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new EntitySpawnerTask(), 20 * 60);
+        Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new ActionbarTask(), 10);
+        Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new StatsRegainTask(), 100);
+        Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new LoanTask(Skyblock::getInstance()), 100);
+     }
 
 }

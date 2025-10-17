@@ -9,6 +9,7 @@ use pocketmine\item\StringToItemParser;
 use pocketmine\resourcepacks\ZippedResourcePack;
 use pocketmine\Server;
 use pocketmine\utils\Config;
+use pocketmine\world\World;
 use ReflectionProperty;
 use Symfony\Component\Filesystem\Path;
 use ZipArchive;
@@ -110,6 +111,19 @@ class API {
    */
   public static function getHub(): string {
     return Skyblock::getInstance()->getConfig()->get("HUB");
+  }
+
+  public static function getEntities(World $world, $class): array{
+    $array = array();
+    $entities = $world->getEntities();
+    foreach($entities as $entity)
+    {
+      if($entity instanceof $class)
+      {
+        $array[] = $entity;
+      }
+    }
+    return $array;
   }
 
   /**

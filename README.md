@@ -29,6 +29,7 @@ This is a Skyblock plugin for PocketMine-MP, inspired by Hypixel.
 - [libasynql ^4.0](https://poggit.pmmp.io/ci/poggit/libasynql/~)
 - [Customies ^1.4](https://poggit.pmmp.io/r/253427/Customies_dev-64.phar)
 - [InvMenu  ^4.7](https://poggit.pmmp.io/r/258919/InvMenu_dev-208.phar)
+- [PathFinder ^0.03](https://poggit.pmmp.io/r/258952/pathfinder_dev-5.phars)
 
 ## For Dev`s
 - [Wiki](https://github.com/pixelforge-studios-PMMP/SkyblockCore/wiki)

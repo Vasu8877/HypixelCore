@@ -6,10 +6,7 @@ namespace Biswajit\Core;
 
 use Biswajit\Core\Managers\BlockManager;
 use Biswajit\Core\Managers\Worlds\IslandGenerator;
-use Biswajit\Core\Tasks\ActionbarTask;
 use Biswajit\Core\Tasks\AsynTasks\loadDataTask;
-use Biswajit\Core\Tasks\LoanTask;
-use Biswajit\Core\Tasks\StatsRegainTask;
 use Biswajit\Core\Utils\Loader;
 use Biswajit\Core\Utils\Utils;
 use muqsit\invmenu\InvMenuHandler;
@@ -20,7 +17,6 @@ use pocketmine\utils\SingletonTrait;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\generator\GeneratorManager;
 use ReflectionException;
-
 
 class Skyblock extends PluginBase {
 
@@ -71,9 +67,11 @@ class Skyblock extends PluginBase {
         
         @mkdir($this->getDataFolder() . "island");
 		@mkdir($this->getDataFolder() . "minion");
+        
 		$this->saveResource("minion/minion.zip");
         $this->saveResource("minion/minion.geo.json");
         $this->saveResource("messages.yml");
+        $this->saveResource("entity.yml");
         $this->saveResource("Skyblock.mcpack");
 
         $this->getLogger()->info("§l§bLoading SkyblockCore Version: ". TextFormat::YELLOW . Utils::getVersion());
@@ -95,10 +93,6 @@ class Skyblock extends PluginBase {
      API::loadHubWorld();
      API::setHubTime();
      API::applyResourcePack();
-
-     $this->getScheduler()->scheduleRepeatingTask(new ActionbarTask(), 10);
-     $this->getScheduler()->scheduleRepeatingTask(new StatsRegainTask(), 100);
-     $this->getScheduler()->scheduleRepeatingTask(new LoanTask($this), 100);
 
      Loader::initialize();
 

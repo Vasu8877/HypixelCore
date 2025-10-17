@@ -12,7 +12,7 @@ class StatsRegainTask extends Task {
 
 public function onRun(): void {
     $players = array_filter(Server::getInstance()->getOnlinePlayers(), function ($player) {
-        return $player instanceof Player && $player->isOnline() && !$player->isCreative();
+        return $player instanceof Player && $player->isOnline();
     });
 
     foreach ($players as $player) {

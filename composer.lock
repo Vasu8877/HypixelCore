@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fcad6bd0a9e896898c89b4c56c5dd743",
+    "content-hash": "e57c99df702ea0f88bb73fc3e015f519",
     "packages": [
         {
             "name": "adhocore/json-comment",
@@ -169,6 +169,42 @@
                 "source": "https://github.com/dktapps-pm-pl/pmforms/tree/2.3.0"
             },
             "time": "2025-03-27T17:10:08+00:00"
+        },
+        {
+            "name": "ivancraft623/pathfinder",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/IvanCraft623/Pahtfinder.git",
+                "reference": "dfd543e741aba033e57ff01c8b99ff0f13dc63c9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/IvanCraft623/Pahtfinder/zipball/dfd543e741aba033e57ff01c8b99ff0f13dc63c9",
+                "reference": "dfd543e741aba033e57ff01c8b99ff0f13dc63c9",
+                "shasum": ""
+            },
+            "require-dev": {
+                "php": "^8.0",
+                "phpstan/phpstan": "1.10.21",
+                "pocketmine/pocketmine-mp": "^5.0.0"
+            },
+            "default-branch": true,
+            "type": "project",
+            "autoload": {
+                "psr-0": {
+                    "IvanCraft623\\Pathfinder\\": "src"
+                }
+            },
+            "license": [
+                "GPL-3.0"
+            ],
+            "description": "Pathfinder library for PocketMine-MP.",
+            "support": {
+                "source": "https://github.com/IvanCraft623/Pahtfinder/tree/main",
+                "issues": "https://github.com/IvanCraft623/Pahtfinder/issues"
+            },
+            "time": "2025-08-23T01:18:42+00:00"
         },
         {
             "name": "muqsit/invmenu",
@@ -1261,64 +1297,12 @@
             "time": "2025-07-10T08:14:14+00:00"
         }
     ],
-    "packages-dev": [
-        {
-            "name": "phpstan/phpstan",
-            "version": "2.1.31",
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/ead89849d879fe203ce9292c6ef5e7e76f867b96",
-                "reference": "ead89849d879fe203ce9292c6ef5e7e76f867b96",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.4|^8.0"
-            },
-            "conflict": {
-                "phpstan/phpstan-shim": "*"
-            },
-            "bin": [
-                "phpstan",
-                "phpstan.phar"
-            ],
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "PHPStan - PHP Static Analysis Tool",
-            "keywords": [
-                "dev",
-                "static analysis"
-            ],
-            "support": {
-                "docs": "https://phpstan.org/user-guide/getting-started",
-                "forum": "https://github.com/phpstan/phpstan/discussions",
-                "issues": "https://github.com/phpstan/phpstan/issues",
-                "security": "https://github.com/phpstan/phpstan/security/policy",
-                "source": "https://github.com/phpstan/phpstan-src"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/ondrejmirtes",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/phpstan",
-                    "type": "github"
-                }
-            ],
-            "time": "2025-10-10T14:14:11+00:00"
-        }
-    ],
+    "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {},
+    "stability-flags": {
+        "ivancraft623/pathfinder": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
