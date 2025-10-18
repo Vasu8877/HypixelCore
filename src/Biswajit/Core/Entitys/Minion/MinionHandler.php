@@ -2,9 +2,7 @@
 
 namespace Biswajit\Core\Entitys\Minion;
 
-use pocketmine\block\Block;
 use pocketmine\inventory\SimpleInventory;
-use pocketmine\item\Item;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\Tag;
 
@@ -140,15 +138,5 @@ trait MinionHandler {
     if ($level === 5) $speed = 10;
     return $speed;
   }
-
-  public function onTick(): void {}
-  public function setUp(): void {}
-
-	/**
-	 * @return Item
-	 */
-  public function getEgg(): Item {
-	  return $this->getEgg();
-	}
   
 }

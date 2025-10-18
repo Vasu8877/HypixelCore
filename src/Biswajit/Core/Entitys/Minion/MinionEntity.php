@@ -19,7 +19,7 @@ use pocketmine\nbt\NBT;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\ListTag;
 
-class MinionEntity extends Human implements MinionInterface {
+abstract class MinionEntity extends Human {
     use MinionHandler;
 
   public function __construct(Location $location, Skin $skin, CompoundTag $nbt) {
@@ -139,4 +139,8 @@ class MinionEntity extends Human implements MinionInterface {
     
     return $nbt;
   }
+
+  abstract public function onTick(): void;
+  abstract public function setUp(): void;
+	abstract public function getEgg(): Item;
 }
