@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Biswajit\Core;
 
 use Biswajit\Core\Managers\BlockManager;
+use Biswajit\Core\Managers\CoreManager;
 use Biswajit\Core\Managers\Worlds\IslandGenerator;
 use Biswajit\Core\Tasks\AsynTasks\loadDataTask;
 use Biswajit\Core\Utils\Loader;
@@ -93,24 +94,26 @@ class Skyblock extends PluginBase {
      API::loadHubWorld();
      API::setHubTime();
      API::applyResourcePack();
+     
+     CoreManager::initialise();
+     CoreManager::getInstance();
 
      Loader::initialize();
 
 	if(!InvMenuHandler::isRegistered()) {
 		InvMenuHandler::register($this);
 	}
- }
+}
 
-    public function onDisable(): void {
-      foreach ($this->getServer()->getOnlinePlayers() as $player) {
-        if (!$player instanceof Player) continue;
-
+  public function onDisable(): void {
+    foreach ($this->getServer()->getOnlinePlayers() as $player) {
         $player->sendTitle("§cServer Restarting");
         $player->save();
     }
 
+    CoreManager::sendShutdown();
     BlockManager::Disable();
-}
+ }
 
     public function addHandler($handler): void {
 		$this->handlers[] = $handler;

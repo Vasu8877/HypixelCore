@@ -113,9 +113,6 @@ class Loader {
 
 	public static function loadEntitys(): void
 	{
-		EntityFactory::getInstance()->register(MinionEntity::class, function(World $world, CompoundTag $nbt): MinionEntity{
-			return new MinionEntity(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);
-		}, ["entity:MinionEntity", 'MinionEntity']);
 
 		EntityFactory::getInstance()->register(MinerMinion::class, function(World $world, CompoundTag $nbt): MinerMinion{
 			return new MinerMinion(EntityDataHelper::parseLocation($nbt, $world), Human::parseSkinNBT($nbt), $nbt);

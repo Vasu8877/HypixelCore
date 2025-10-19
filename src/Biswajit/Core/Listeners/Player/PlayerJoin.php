@@ -11,7 +11,6 @@ use Biswajit\Core\Skyblock;
 use Biswajit\Core\Tasks\InterestTask;
 use Biswajit\Core\Utils\Utils;
 use pocketmine\event\Listener;
-use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 
 class PlayerJoin implements Listener {
