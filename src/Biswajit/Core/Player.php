@@ -6,6 +6,7 @@ namespace Biswajit\Core;
 
 use Biswajit\Core\Managers\EconomyManager;
 use Biswajit\Core\Sessions\EconomySession;
+use Biswajit\Core\Sessions\RankSession;
 use Biswajit\Core\Sessions\SessionsData;
 use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\player\Player as PMMPPlayer;
@@ -14,6 +15,7 @@ class Player extends PMMPPlayer {
 
     use SessionsData;
     use EconomySession;
+    use RankSession;
 
     protected function initEntity(CompoundTag $nbt) : void {
 		parent::initEntity($nbt);
@@ -38,10 +40,12 @@ class Player extends PMMPPlayer {
     public function Load(): void {
       $this->loadData();
       $this->loadEconomy();
+      $this->loadRank();
     }
 
     public function save(): void {
       $this->saveData();
       $this->saveEconomy();
+      $this->saveRank();
     }
 }

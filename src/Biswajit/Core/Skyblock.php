@@ -6,6 +6,7 @@ namespace Biswajit\Core;
 
 use Biswajit\Core\Managers\BlockManager;
 use Biswajit\Core\Managers\CoreManager;
+use Biswajit\Core\Managers\ScoreBoardManager;
 use Biswajit\Core\Managers\Worlds\IslandGenerator;
 use Biswajit\Core\Tasks\AsynTasks\loadDataTask;
 use Biswajit\Core\Utils\Loader;
@@ -30,7 +31,8 @@ class Skyblock extends PluginBase {
 
     public function onLoad(): void {
         self::$instance = $this;
-        self::$prefix = Skyblock::getInstance()->getConfig()->get("PREFIX");
+        self::$prefix = $this->getConfig()->get("PREFIX");
+        ScoreBoardManager::setScoreboard($this->getConfig()->get("SCOREBOARD-TITLE"));
 
         $this->reloadConfig();
 
@@ -74,6 +76,7 @@ class Skyblock extends PluginBase {
         $this->saveResource("messages.yml");
         $this->saveResource("entity.yml");
         $this->saveResource("Skyblock.mcpack");
+        $this->saveResource("ranks.yml");
 
         $this->getLogger()->info("§l§bLoading SkyblockCore Version: ". TextFormat::YELLOW . Utils::getVersion());
 

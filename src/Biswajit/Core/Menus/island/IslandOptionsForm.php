@@ -13,7 +13,6 @@ use dktapps\pmforms\MenuOption;
 use Biswajit\Core\Managers\IslandManager;
 use Biswajit\Core\Menus\island\partner\PartnerOptionsForm;
 use Biswajit\Core\Menus\island\partner\PartnerTeleportForm;
-use Biswajit\Core\Utils\Utils;
 use Biswajit\Core\Sessions\IslandData;
 
 class IslandOptionsForm extends MenuForm
@@ -81,10 +80,10 @@ class IslandOptionsForm extends MenuForm
                                         break;
                                     }
                                 }
-                                $player->sendMessage(Utils::BT_MARK . "aSuccessfully teleported Jerry to you!");
+                                $player->sendMessage(Skyblock::$prefix . "aSuccessfully teleported Jerry to you!");
                                 break;
                             }
-                            $player->sendMessage(Utils::BT_MARK . "cYou must be on your island to do this!");
+                            $player->sendMessage(Skyblock::$prefix . "cYou must be on your island to do this!");
                             break;
                         case 11:
                             $player->sendForm(new IslandDeleteConfirmForm());

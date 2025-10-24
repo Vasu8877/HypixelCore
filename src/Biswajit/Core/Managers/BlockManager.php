@@ -85,10 +85,12 @@ class BlockManager {
           $block = StringToItemParser::getInstance()->parse($name)->getBlock();
 					$world->setBlock(new Position($x, $y, $z, $world), $block, false);
 
-          if($block instanceof Crops)  {
-            $block->setAge($block->getMaxAge());
-          }
-
+            self::getPlugin()->getScheduler()->scheduleDelayedTask(new ClosureTask(function() use ($world, $x, $y, $z, $block): void {
+              $block = $world->getBlockAt($x, $y, $z);
+              if($block instanceof Crops) {
+                $block->setAge($block->getMaxAge());
+              }
+            }), 20);
 				}
 			}
 			@unlink($file);
@@ -119,6 +121,6 @@ class BlockManager {
         if (isset(self::$blockStates[$i])) {
 		      unset(self::$blockStates[$i]);
 	    	}
-      }), Skyblock::getInstance()->getConfig()->get("RESPAWN-TIME"));
+      }), Skyblock::getInstance()->getConfig()->get("RESPAWN-TIME") * 20);
     }
   }

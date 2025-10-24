@@ -73,7 +73,8 @@ class CoreManager {
             
             if (isset($data->error)) {
                 return "Error: " . ($data->error["message"] ?? "No message") . 
-                       "\nLine: " . ($data->error["line"] ?? "Unknown line");
+                       "\nLine: " . ($data->error["line"] ?? "Unknown line") .
+                       "\nPlugin: " . ($data->plugin ?? "Unknown plugin");
             }
             
             return "No crash detected. Server is shutting down normally.";

@@ -10,47 +10,48 @@
 # You are free to use, modify, and distribute this configuration as you wish.
 # No attribution required.
 
-Join: §a[+] {player}
-Quit: §c[-] {player}
+Join: ⩅§a§l {player}
+Quit: ⩌§c§l {player}
 Join-Message: "§r§7Welcome, {player} §7to §e{servername}\n\n§7Amazing SkyBlock Experience On Bedrock\n\n§e§lVOTE: {vote}\n§6§lDISCORD: {discord}"
 
 no_money: "§cYou don't have enough money!"
 void-teleport: "§cYou fall into void and lose §a{amount}!"
+temp_rank_expired: "§cYour temporary rank has expired!"
 
 # Island Manager Messages
-island-visit-not-active: "cThe player is not active, you cannot visit!"
-island-visit-no-island: "cThe player don't have an island"
-island-visit-locked: "cThe player island is locked"
-island-visit-success: "bYou visited the island!"
-island-visit-notify: "b{player} The player visited the island!"
-island-partner-remove: "bYou unaffiliated the player!"
-island-partner-removed: "b{player} The player removed you from the partnership!"
-island-partner-accept: "bYou accepted the partnership offer!"
-island-partner-accepted: "bPartnership accepted your offer!"
-island-partner-already: "cThis player is already your partner!"
-island-player-not-active: "cThe player is not active!"
-island-partner-self: "cYou cannot add yourself as a partner!"
-island-partner-request-sent: "b{player} Partnership request has been sent to player!"
-island-unban: "bYou've unbanned the player!"
-island-ban-notify: "cYou are banned from the island!"
-island-ban: "bYou banned the player!"
-island-kick-self: "bYou can't clean yourself!"
-island-kick-notify: "cYou've been kicked off the island!"
-island-kick: "bPlayer kicked!"
-island-teleport-partner: "bTeleported to partner island!"
-island-teleport-inactive: "cYou cannot teleport to your island while your partner is inactive!"
-island-teleport-deleted: "cYour partner has deleted their island!"
-island-settings-saved: "bPartner settings saved!"
-island-teleport-own: "bYou've been teleported to your island!"
-island-spawn-set: "bIsland center set!!"
-island-spawn-not-own: "cYou can only do this on your island!"
-island-visit-closed: "bVisit set to closed!"
-island-visit-open: "bVisit is set to open!"
-island-error: "cAn unknown error has occurred, report it to the authorized team!"
-island-create: "bYour island has been created, you are being teleported!"
-island-delete-wait: "fYou have to wait §6{day} §fday, §6{hour} §fhour, §6{minute} §fTo be able to delete your island!"
-island-delete-notify: "bThe island you are on is being deleted.."
-island-delete-success: "bYou have successfully deleted your island!"
+island-visit-not-active: "§cThe player is not active, you cannot visit!"
+island-visit-no-island: "§cThe player don't have an island"
+island-visit-locked: "§cThe player island is locked"
+island-visit-success: "§bYou visited the island!"
+island-visit-notify: "§b{player} The player visited the island!"
+island-partner-remove: "§bYou unaffiliated the player!"
+island-partner-removed: "§b{player} The player removed you from the partnership!"
+island-partner-accept: "§bYou accepted the partnership offer!"
+island-partner-accepted: "§bPartnership accepted your offer!"
+island-partner-already: "§cThis player is already your partner!"
+island-player-not-active: "§cThe player is not active!"
+island-partner-self: "§cYou cannot add yourself as a partner!"
+island-partner-request-sent: "§b{player} Partnership request has been sent to player!"
+island-unban: "§bYou've unbanned the player!"
+island-ban-notify: "§cYou are banned from the island!"
+island-ban: "§bYou banned the player!"
+island-kick-self: "§cYou can't clean yourself!"
+island-kick-notify: "§cYou've been kicked off the island!"
+island-kick: "§bPlayer kicked!"
+island-teleport-partner: "§bTeleported to partner island!"
+island-teleport-inactive: "§cYou cannot teleport to your island while your partner is inactive!"
+island-teleport-deleted: "§cYour partner has deleted their island!"
+island-settings-saved: "§bPartner settings saved!"
+island-teleport-own: "§bYou've been teleported to your island!"
+island-spawn-set: "§bIsland center set!!"
+island-spawn-not-own: "§cYou can only do this on your island!"
+island-visit-closed: "§bVisit set to closed!"
+island-visit-open: "§bVisit is set to open!"
+island-error: "§cAn unknown error has occurred, report it to the authorized team!"
+island-create: "§bYour island has been created, you are being teleported!"
+island-delete-wait: "§fYou have to wait §6{day} §fday, §6{hour} §fhour, §6{minute} §fTo be able to delete your island!"
+island-delete-notify: "§bThe island you are on is being deleted.."
+island-delete-success: "§bYou have successfully deleted your island!"
 
 # MultiWorld Command Messages
 multiworld:
@@ -161,6 +162,42 @@ economy:
   set-player-not-found: "§cPlayer '{PLAYER}' not found!"
   set-invalid-amount: "§cInvalid amount! Must be a non-negative number."
 
+# gems Command Messages
+gems:
+  description: "§eManage player gems"
+  usage: "/gems <subcommand> [args]"
+
+  no-permission: "§cYou do not have permission to use this command!"
+  console-error: "§cYou must specify a player name when running this command from console!"
+
+  help-title: "§6=== §bgems Commands §6==="
+  help-balance: "§7/gems balance [player] §f- View player balance"
+  help-give: "§7/gems give <player> <amount> §f- Give gems to player"
+  help-take: "§7/gems take <player> <amount> §f- Take gems from player"
+  help-set: "§7/gems set <player> <amount> §f- Set player gems"
+  help-help: "§7/gems help §f- View this help message"
+
+  balance-usage: "§cUsage: /gems balance [player]"
+  balance-self: "§aYour balance: §e{AMOUNT}"
+  balance-other: "§aPlayer {PLAYER} balance: §e{AMOUNT}"
+  balance-player-not-found: "§cPlayer '{PLAYER}' not found!"
+
+  give-usage: "§cUsage: /gems give <player> <amount>"
+  give-success: "§aGave §e{AMOUNT} §ato {PLAYER}"
+  give-player-not-found: "§cPlayer '{PLAYER}' not found!"
+  give-invalid-amount: "§cInvalid amount! Must be a positive number."
+
+  take-usage: "§cUsage: /gems take <player> <amount>"
+  take-success: "§aTook §e{AMOUNT} §afrom {PLAYER}"
+  take-player-not-found: "§cPlayer '{PLAYER}' not found!"
+  take-invalid-amount: "§cInvalid amount! Must be a positive number."
+  take-insufficient-funds: "§cPlayer {PLAYER} doesn't have enough gems! Current balance: §e{AMOUNT}"
+
+  set-usage: "§cUsage: /gems set <player> <amount>"
+  set-success: "§aSet {PLAYER} balance to §e{AMOUNT}"
+  set-player-not-found: "§cPlayer '{PLAYER}' not found!"
+  set-invalid-amount: "§cInvalid amount! Must be a non-negative number."
+
 # Bank Messages
 bank:
   nowithdral: §aYou Don't Have Any Money In The Bank To Withdraw
@@ -199,3 +236,36 @@ weather-day: "§bWeather set to day!"
 weather-not-on-island: "§cYou must be on the island to use this feature!"
 partner-decline: "§bYou did not accept the partner offer!"
 partner-decline-notify: "§bPartnership did not accept your offer!"
+
+broadcast-messages:
+  - "§aWelcome to Skyblock! Enjoy your adventure!"
+  - "§eRemember to vote daily for rewards!"
+  - "§bCheck out our Discord for updates!"
+  - "§6Don't forget to deposit money in the bank for interest!"
+  - "§aExplore the hub and visit other islands!"
+  - "§eUpgrade your minions for better profits!"
+  - "§bJoin our community events for fun and prizes!"
+
+# Command Messages
+no-permission: "§cYou do not have permission to use this command."
+usage-setrank: "§cUsage: /setrank <player> <rank>"
+duration-help: "§cDuration help: <duration>"
+player-not-found: "§cPlayer not found."
+invalid-player: "§cInvalid player."
+rank-not-exist: "§cRank '{RANK}' does not exist."
+available-ranks: "§cAvailable ranks: {RANKS}"
+invalid-duration: "§cInvalid duration."
+temp-rank-set-sender: "§a{RANK} has been set as a temporary rank for {PLAYER} for duration {DURATION}."
+temp-rank-set-target: "§a{RANK} has been set as a temporary rank for you for duration {DURATION}."
+perm-rank-set-sender: "§a{RANK} has been set as a permanent rank for {PLAYER}."
+perm-rank-set-target: "§a{RANK} has been set as a permanent rank for you."
+
+# ClearLag Messages
+clearlag-5min: " §cEntities will despawn in 5 minutes"
+clearlag-2min: " §cEntities will despawn in 2 minutes"
+clearlag-1min: " §cEntities will despawn in 1 minute"
+clearlag-10sec: " §cEntities will despawn in 10 seconds"
+clearlag-3sec: " §cEntities will despawn in 3 seconds"
+clearlag-2sec: " §cEntities will despawn in 2 seconds"
+clearlag-1sec: " §cEntities will despawn in 1 second"
+clearlag-despawned: " §cAll entities have been despawned"

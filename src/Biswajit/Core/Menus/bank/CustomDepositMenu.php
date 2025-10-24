@@ -48,7 +48,7 @@ class CustomDepositMenu extends CustomForm
             }
 
             BankManager::addBankMoney($player, (float) $input);
-            $player->sendMessage(str_replace("{AMOUNT}", (string)$input, API::getMessage("bank.deposit-seccess")));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("bank.deposit-seccess", ["{AMOUNT}" => (string)$input]));
             EconomyManager::subtractMoney($player, (float) $input);
             }
         );

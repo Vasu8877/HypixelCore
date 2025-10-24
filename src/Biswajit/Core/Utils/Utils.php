@@ -11,8 +11,6 @@ use pocketmine\math\Vector3;
 
 class Utils {
 
-    public const BT_MARK = "§d» §";
-
     public static function getVersion(): string {
       return Skyblock::getInstance()->getDescription()->getVersion();
     }
@@ -76,6 +74,25 @@ class Utils {
 	 }
 	return null;
   }
+
+    public static function parseDuration(string $duration): int {
+        $duration = strtolower($duration);
+        $value = (int)substr($duration, 0, -1);
+        $unit = substr($duration, -1);
+
+        switch ($unit) {
+            case 'd':
+                return $value * 86400;
+            case 'h':
+                return $value * 3600;
+            case 'm':
+                return $value * 60;
+            case 's':
+                return $value;
+            default:
+                return 0;
+        }
+    }
 
 	public static function getRomanNumeral(int $integer): string
 	{

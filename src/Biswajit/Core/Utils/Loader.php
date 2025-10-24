@@ -13,7 +13,9 @@ use Biswajit\Core\Commands\player\TopMoneyCommand;
 use Biswajit\Core\Commands\player\VisitCommand;
 use Biswajit\Core\Commands\player\WeatherCommand;
 use Biswajit\Core\Commands\Staff\EconomyCommand;
+use Biswajit\Core\Commands\Staff\GemsCommand;
 use Biswajit\Core\Commands\Staff\MultiWorld;
+use Biswajit\Core\Commands\Staff\RankCommand;
 use Biswajit\Core\Commands\Staff\SetEntityCommand;
 use Biswajit\Core\Entitys\Minion\MinionEntity;
 use Biswajit\Core\Entitys\Minion\types\FarmerMinion;
@@ -33,6 +35,7 @@ use Biswajit\Core\Listeners\Entity\EntityDamageByEntity;
 use Biswajit\Core\Listeners\Entity\EntityRegainHealth;
 use Biswajit\Core\Listeners\Entity\EntityTrampleFarmland;
 use Biswajit\Core\Listeners\Inventory\InventoryTransaction;
+use Biswajit\Core\Listeners\Player\PlayerChat;
 use Biswajit\Core\Listeners\Player\PlayerInteract;
 use Biswajit\Core\Listeners\Server\IslandListener;
 use Biswajit\Core\Listeners\Player\PlayerCreation;
@@ -43,8 +46,12 @@ use Biswajit\Core\Listeners\Server\HubListener;
 use Biswajit\Core\Listeners\Server\QueryRegenerate;
 use Biswajit\Core\Skyblock;
 use Biswajit\Core\Tasks\ActionbarTask;
+use Biswajit\Core\Tasks\BroadcastTask;
+use Biswajit\Core\Tasks\ClearLagTask;
 use Biswajit\Core\Tasks\EntitySpawnerTask;
 use Biswajit\Core\Tasks\LoanTask;
+use Biswajit\Core\Tasks\RankTask;
+use Biswajit\Core\Tasks\ScoreBoardTask;
 use Biswajit\Core\Tasks\StatsRegainTask;
 use pocketmine\entity\EntityDataHelper;
 use pocketmine\entity\EntityFactory;
@@ -79,7 +86,8 @@ class Loader {
              new PlayerExhaust(),
              new QueryRegenerate(),
 			 new PlayerInteract(),
-             new EntityAttackEvent()
+             new EntityAttackEvent(),
+             new PlayerChat()
         ];
 
         foreach ($listeners as $event){
@@ -100,7 +108,9 @@ class Loader {
             new BankCommand(),
             new TopBankCommand(),
             new TopMoneyCommand(),
-            new SetEntityCommand()
+            new SetEntityCommand(),
+            new GemsCommand(),
+            new RankCommand()
         ];
 
         foreach($commands as $cmd){
@@ -170,6 +180,10 @@ class Loader {
         Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new ActionbarTask(), 10);
         Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new StatsRegainTask(), 100);
         Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new LoanTask(Skyblock::getInstance()), 100);
+        Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new ClearLagTask(), 20);
+        Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new ScoreBoardTask(), 20);
+        Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new RankTask(Skyblock::getInstance()), 20);
+        Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new BroadcastTask(Skyblock::getInstance()), 1200);
      }
 
 }

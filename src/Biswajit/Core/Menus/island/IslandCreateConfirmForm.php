@@ -8,7 +8,6 @@ use pocketmine\player\Player;
 use dktapps\pmforms\ModalForm;
 use Biswajit\Core\Skyblock;
 use Biswajit\Core\Managers\IslandManager;
-use Biswajit\Core\Utils\Utils;
 
 class IslandCreateConfirmForm extends ModalForm
 {
@@ -20,7 +19,7 @@ class IslandCreateConfirmForm extends ModalForm
             function (Player $player, bool $choice) use ($type): void {
                 switch ($choice) {
                     case true:
-                        $player->sendMessage(Utils::BT_MARK . "bYour island is being created..");
+                        $player->sendMessage(Skyblock::$prefix . "bYour island is being created..");
 
                         IslandManager::islandCreate($player, $type);
                         break;

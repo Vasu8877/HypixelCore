@@ -86,3 +86,31 @@ UPDATE economy SET data=:data WHERE uuid=:uuid;
 -- # }
 
 -- # }
+
+-- #{ rank
+
+-- # { init
+CREATE TABLE IF NOT EXISTS rank (
+    uuid TEXT PRIMARY KEY,
+    data TEXT NOT NULL
+);
+-- # }
+
+-- # { load
+-- #   :uuid string
+SELECT data FROM rank WHERE uuid=:uuid;
+-- # }
+
+-- # { create
+-- #   :uuid string
+-- #   :data string
+INSERT INTO rank (uuid, data) VALUES (:uuid, :data);
+-- # }
+
+-- # { update
+-- #   :uuid string
+-- #   :data string
+UPDATE rank SET data=:data WHERE uuid=:uuid;
+-- # }
+
+-- # }

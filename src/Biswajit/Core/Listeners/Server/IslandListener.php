@@ -31,6 +31,7 @@ class IslandListener implements Listener
         $player = $event->getPlayer();
 
         if (!$player instanceof Player) return;
+        
         IslandData::get($player->getName(), function(?IslandData $playerData) use ($player) {
            if (is_null($playerData)) {
              $defaultWorld = Server::getInstance()->getWorldManager()->getWorldByName(API::getHub());
@@ -96,7 +97,7 @@ class IslandListener implements Listener
                 }
 
                 $event->cancel();
-                $player->sendPopup(Utils::BT_MARK . "cYour partner won't let you interact!");
+                $player->sendPopup(Skyblock::$prefix . "cYour partner won't let you interact!");
                 return;
             }
         }
@@ -134,7 +135,7 @@ class IslandListener implements Listener
                 }
 
                 $event->cancel();
-                $player->sendPopup(Utils::BT_MARK . "cYour partner won't let you!");
+                $player->sendPopup(Skyblock::$prefix . "cYour partner won't let you!");
                 return;
             }
         }
@@ -200,7 +201,7 @@ class IslandListener implements Listener
                 }
 
                 $event->cancel();
-                $player->sendPopup(Utils::BT_MARK . "cYour partner won't let you!");
+                $player->sendPopup(Skyblock::$prefix . "cYour partner won't let you!");
                 return;
             }
         }
@@ -239,7 +240,7 @@ class IslandListener implements Listener
                     }
 
                     $event->cancel();
-                    $player->sendPopup(Utils::BT_MARK . "cYour partner won't let you!");
+                    $player->sendPopup(Skyblock::$prefix . "cYour partner won't let you!");
                     return;
                 }
             }
@@ -264,7 +265,7 @@ class IslandListener implements Listener
                     }
 
                     $player->teleport($defaultWorld->getSpawnLocation());
-                    $player->sendPopup(Utils::BT_MARK . "cYou are banned on this island!");
+                    $player->sendPopup(Skyblock::$prefix . "cYou are banned on this island!");
                 }
             }
         }

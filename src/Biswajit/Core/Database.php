@@ -17,6 +17,7 @@ trait Database
        $db->executeGeneric('skyblockIsland.init');
        $db->executeGeneric('skyblock.init');
        $db->executeGeneric('economy.init');
+       $db->executeGeneric('rank.init');
        $db->waitAll();
        $this->dataBase = $db;
     }

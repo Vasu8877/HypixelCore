@@ -3,8 +3,8 @@
 namespace Biswajit\Core\Commands\player;
 
 use Biswajit\Core\Managers\IslandManager;
-use Biswajit\Core\Utils\Utils;
 use Biswajit\Core\Sessions\IslandData;
+use Biswajit\Core\Skyblock;
 use pocketmine\player\Player;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
@@ -24,7 +24,7 @@ class JoinCommand extends Command
                 if ($islandData !== null) {
                     IslandManager::teleportToIsland($sender);
                 } else {
-                    $sender->sendMessage(Utils::BT_MARK . "bYou Don't Have An Island, §eCreate An Island With /is");
+                    $sender->sendMessage(Skyblock::$prefix . "bYou Don't Have An Island, §eCreate An Island With /is");
                 }
             });
             return true;

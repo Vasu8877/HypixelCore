@@ -28,7 +28,7 @@ class DepositMenu extends MenuForm
                      return;
                     }
 
-                    $sender->sendMessage(str_replace("{AMOUNT}", EconomyManager::getMoney($sender), API::getMessage("bank.deposit-seccess")));
+                    $sender->sendMessage(Skyblock::$prefix . API::getMessage("bank.deposit-seccess", ["{AMOUNT}" => (string)EconomyManager::getMoney($sender)]));
                     BankManager::addBankMoney($sender, EconomyManager::getMoney($sender));
                     EconomyManager::subtractMoney($sender, EconomyManager::getMoney($sender));
                     break;
@@ -38,7 +38,7 @@ class DepositMenu extends MenuForm
                      return;
                     }
 
-                    $sender->sendMessage(str_replace("{AMOUNT}", EconomyManager::getMoney($sender) / 2, API::getMessage("bank.deposit-seccess")));
+                    $sender->sendMessage(Skyblock::$prefix . API::getMessage("bank.deposit-seccess", ["{AMOUNT}" => (string)(EconomyManager::getMoney($sender) / 2)]));
                     BankManager::addBankMoney($sender, EconomyManager::getMoney($sender) / 2);
                     EconomyManager::subtractMoney($sender, EconomyManager::getMoney($sender) / 2);
                     break;

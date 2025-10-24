@@ -8,7 +8,6 @@ use pocketmine\player\Player;
 use dktapps\pmforms\ModalForm;
 use Biswajit\Core\Skyblock;
 use Biswajit\Core\Managers\IslandManager;
-use Biswajit\Core\Utils\Utils;
 
 class PartnerRequestForm extends ModalForm
 {
@@ -24,9 +23,9 @@ class PartnerRequestForm extends ModalForm
                         IslandManager::partnerRequestConfirm($player, $requestPlayer->getName());
                         break;
                     case false:
-                        $player->sendMessage(Utils::BT_MARK . "bYou did not accept the partner offer!");
+                        $player->sendMessage(Skyblock::$prefix . "bYou did not accept the partner offer!");
                         if ($requestPlayer->isOnline()) {
-                            $requestPlayer->sendMessage(Utils::BT_MARK . "bPartnership did not accept your offer!");
+                            $requestPlayer->sendMessage(Skyblock::$prefix . "bPartnership did not accept your offer!");
                         }
                         break;
                 }

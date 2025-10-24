@@ -9,7 +9,6 @@ use Biswajit\Core\Menus\island\partner\PartnerRequestForm;
 use Biswajit\Core\Player;
 use Biswajit\Core\Sessions\IslandData;
 use Biswajit\Core\Skyblock;
-use Biswajit\Core\Tasks\AsynTasks\loadWorldsTask;
 use Biswajit\Core\Utils\Utils;
 use pocketmine\world\World;
 use ZipArchive;
@@ -34,18 +33,18 @@ class IslandManager
     {
         $selectedPlayer = self::getServer()->getPlayerExact($selectedPlayer);
         if (!$selectedPlayer instanceof Player) {
-            $player->sendMessage(Utils::BT_MARK . API::getMessage("island-visit-not-active"));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("island-visit-not-active"));
             return;
         }
 
         IslandData::get($selectedPlayer->getName(), function(?IslandData $islandData) use ($player, $selectedPlayer): void {
             if ($islandData === null) {
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-visit-no-island"));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("island-visit-no-island"));
                 return;
             }
             $visitStatus = $islandData->getVisit();
             if (!$visitStatus) {
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-visit-locked"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-visit-locked"));
                 return;
             }
             if (!self::getServer()->getWorldManager()->isWorldLoaded($selectedPlayer->getName())) self::getServer()->getWorldManager()->loadWorld($selectedPlayer->getName());
@@ -55,8 +54,8 @@ class IslandManager
             }
 
             $player->teleport($world->getSpawnLocation());
-            $player->sendMessage(Utils::BT_MARK . API::getMessage("island-visit-success"));
-            $selectedPlayer->sendMessage(Utils::BT_MARK . str_replace("{player}", $player->getName(), API::getMessage("island-visit-notify")));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("island-visit-success"));
+            $selectedPlayer->sendMessage(Skyblock::$prefix . API::getMessage("island-visit-notify", ["{player}" => $player->getName()]));
             return;
         });
     }
@@ -82,9 +81,9 @@ class IslandManager
                 }
             });
         }
-        $player->sendMessage(Utils::BT_MARK . API::getMessage("island-partner-remove"));
+        $player->sendMessage(Skyblock::$prefix . API::getMessage("island-partner-remove"));
         if ($selectedPlayerObj instanceof Player) {
-            $selectedPlayerObj->sendMessage(Utils::BT_MARK . str_replace("{player}", $player->getName(), API::getMessage("island-partner-removed")));
+            $selectedPlayerObj->sendMessage(Skyblock::$prefix . API::getMessage("island-partner-removed", ["{player}" => $player->getName()]));
         }
     }
 
@@ -102,11 +101,11 @@ class IslandManager
                     $playerData->addPartner($requestPlayer);
                 }
             });
-            $player->sendMessage(Utils::BT_MARK . API::getMessage("island-partner-accept"));
-            $requestPlayerObj->sendMessage(Utils::BT_MARK . API::getMessage("island-partner-accepted"));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("island-partner-accept"));
+            $requestPlayerObj->sendMessage(Skyblock::$prefix . API::getMessage("island-partner-accepted"));
             return;
         }
-        $player->sendMessage(Utils::BT_MARK . API::getMessage("island-player-not-active"));
+        $player->sendMessage(Skyblock::$prefix . API::getMessage("island-player-not-active"));
     }
 
     public static function partnerRequest(Player $player, string $selectedPlayer): void
@@ -114,21 +113,21 @@ class IslandManager
         $selectedPlayerObj = self::getServer()->getPlayerExact($selectedPlayer);
         if ($selectedPlayerObj instanceof Player) {
             if ($selectedPlayerObj->getName() === $player->getName()) {
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-partner-self"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-partner-self"));
                 return;
             }
             IslandData::get($player->getName(), function(?IslandData $playerData) use ($selectedPlayerObj, $player) {
                 $partners = $playerData ? $playerData->getPartners() : [];
                 if (in_array($selectedPlayerObj->getName(), $partners)) {
-                    $player->sendMessage(Utils::BT_MARK . API::getMessage("island-partner-already"));
+                    $player->sendMessage(Skyblock::$prefix . API::getMessage("island-partner-already"));
                     return;
                 }
                 $selectedPlayerObj->sendForm(new PartnerRequestForm($player));
-                $player->sendMessage(Utils::BT_MARK . str_replace("{player}", $selectedPlayerObj->getName(), API::getMessage("island-partner-request-sent")));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-partner-request-sent", ["{player}" => $selectedPlayerObj->getName()]));
             });
             return;
         }
-        $player->sendMessage(Utils::BT_MARK . API::getMessage("island-player-not-active"));
+        $player->sendMessage(Skyblock::$prefix . API::getMessage("island-player-not-active"));
     }
 
     public static function islandUnBanPlayer(Player $player, string $selectedPlayer): void
@@ -138,7 +137,7 @@ class IslandManager
                 $islandData->removeBanned($selectedPlayer);
             }
         });
-        $player->sendMessage(Utils::BT_MARK . API::getMessage("island-unban"));
+        $player->sendMessage(Skyblock::$prefix . API::getMessage("island-unban"));
     }
 
     public static function islandBanPlayer(Player $player, string $selectedPlayer): void
@@ -154,12 +153,12 @@ class IslandManager
                     $islandData->addBanned($selectedPlayerObj->getName());
                 }
                 $selectedPlayerObj->teleport($defaultWorld->getSpawnLocation());
-                $selectedPlayerObj->sendMessage(Utils::BT_MARK . API::getMessage("island-ban-notify"));
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-ban"));
+                $selectedPlayerObj->sendMessage(Skyblock::$prefix . API::getMessage("island-ban-notify"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-ban"));
             });
             return;
         }
-        $player->sendMessage(Utils::BT_MARK . API::getMessage("island-player-not-active"));
+        $player->sendMessage(Skyblock::$prefix . API::getMessage("island-player-not-active"));
     }
 
     public static function islandKickPlayer(Player $player, string $selectedPlayer): void
@@ -167,7 +166,7 @@ class IslandManager
         $selectedPlayer = self::getServer()->getPlayerExact($selectedPlayer);
         if ($selectedPlayer instanceof Player) {
             if ($selectedPlayer->getName() === $player->getName()) {
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-kick-self"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-kick-self"));
                 return;
             }
             $defaultWorld = self::getServer()->getWorldManager()->getDefaultWorld();
@@ -176,10 +175,10 @@ class IslandManager
             }
 
             $selectedPlayer->teleport($defaultWorld->getSpawnLocation());
-            $selectedPlayer->sendMessage(Utils::BT_MARK . API::getMessage("island-kick-notify"));
-            $player->sendMessage(Utils::BT_MARK . API::getMessage("island-kick"));
+            $selectedPlayer->sendMessage(Skyblock::$prefix . API::getMessage("island-kick-notify"));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("island-kick"));
         } else {
-            $player->sendMessage(Utils::BT_MARK . API::getMessage("island-player-not-active"));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("island-player-not-active"));
         }
     }
 
@@ -187,7 +186,7 @@ class IslandManager
     {
         IslandData::get($selectedPlayer, function(?IslandData $islandData) use ($player, $selectedPlayer): void {
             if ($islandData === null) {
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-teleport-deleted"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-teleport-deleted"));
                 return;
             }
             $settings = $islandData->getSettings();
@@ -200,9 +199,9 @@ class IslandManager
                 }
 
                 $player->teleport($world->getSpawnLocation());
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-teleport-partner"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-teleport-partner"));
             } else {
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-teleport-inactive"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-teleport-inactive"));
             }
         });
     }
@@ -219,7 +218,7 @@ class IslandManager
                 $settings['de-active-teleport'] = $deActiveTeleport;
                 $islandData->setSettings($settings);
             }
-            $player->sendMessage(Utils::BT_MARK . API::getMessage("island-settings-saved"));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("island-settings-saved"));
         });
     }
 
@@ -232,17 +231,17 @@ class IslandManager
         }
 
         $player->teleport($world->getSpawnLocation());
-        $player->sendMessage(Utils::BT_MARK . API::getMessage("island-teleport-own"));
+        $player->sendMessage(Skyblock::$prefix . API::getMessage("island-teleport-own"));
     }
 
     public static function setIslandSpawnLocation(Player $player): void
     {
         if ($player->getWorld()->getFolderName() === $player->getName()) {
             $player->getWorld()->setSpawnLocation($player->getPosition()->asVector3());
-            $player->sendMessage(Utils::BT_MARK . API::getMessage("island-spawn-set"));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("island-spawn-set"));
             return;
         }
-        $player->sendMessage(Utils::BT_MARK . API::getMessage("island-spawn-not-own"));
+        $player->sendMessage(Skyblock::$prefix . API::getMessage("island-spawn-not-own"));
     }
 
     public static function changeIslandVisit(Player $player): void
@@ -250,14 +249,14 @@ class IslandManager
         IslandData::get($player->getName(), function(?IslandData $islandData) use ($player): void {
             if ($islandData !== null) {
                 if (!$islandData->getVisit()) {
-                    $player->sendMessage(Utils::BT_MARK . API::getMessage("island-visit-open"));
+                    $player->sendMessage(Skyblock::$prefix . API::getMessage("island-visit-open"));
                     $islandData->setVisit(true);
                 } else {
-                    $player->sendMessage(Utils::BT_MARK . API::getMessage("island-visit-closed"));
+                    $player->sendMessage(Skyblock::$prefix . API::getMessage("island-visit-closed"));
                     $islandData->setVisit(false);
                 }
             } else {
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-error"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-error"));
             }
         });
     }
@@ -303,7 +302,7 @@ class IslandManager
 
             $player->teleport($world->getSpawnLocation());
             $player->getWorld()->requestChunkPopulation($player->getPosition()->getFloorX() >> 4, $player->getPosition()->getFloorZ() >> 4, null);
-            $player->sendMessage(Utils::BT_MARK . API::getMessage("island-create"));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("island-create"));
         });
     }
 
@@ -311,14 +310,14 @@ class IslandManager
     {
         IslandData::get($player->getName(), function(?IslandData $islandData) use ($player): void {
             if ($islandData === null) {
-                $player->sendMessage(Utils::BT_MARK . API::getMessage("island-error"));
+                $player->sendMessage(Skyblock::$prefix . API::getMessage("island-error"));
                 return;
             }
             $deleteTime = $islandData->getSettings()['delete-time'] ?? null;
 
             if ($deleteTime === null || time() > (int)$deleteTime) {
                 self::islandDataDelete($player, function() use ($player) {
-                    $player->sendMessage(Utils::BT_MARK . API::getMessage("island-delete-success"));
+                    $player->sendMessage(Skyblock::$prefix . API::getMessage("island-delete-success"));
                 });
                 return;
             }
@@ -328,7 +327,7 @@ class IslandManager
             $hour = floor($hourSecond / 3600);
             $minuteHour = $hourSecond % 3600;
             $minute = floor($minuteHour / 60);
-            $player->sendMessage(Utils::BT_MARK . "fYou have to wait §6" . $day . " §fday, §6" . $hour . " §fhour, §6" . $minute . " §fTo be able to delete your island!");
+            $player->sendMessage(Skyblock::$prefix . "fYou have to wait §6" . $day . " §fday, §6" . $hour . " §fhour, §6" . $minute . " §fTo be able to delete your island!");
         });
     }
 
@@ -348,7 +347,7 @@ class IslandManager
             }
 
             $islandPlayer->teleport($defaultWorld->getSpawnLocation());
-            $islandPlayer->sendMessage(Utils::BT_MARK . API::getMessage("island-delete-notify"));
+            $islandPlayer->sendMessage(Skyblock::$prefix . API::getMessage("island-delete-notify"));
         }
 
         IslandData::get($player->getName(), function(?IslandData $islandData) use ($player, $world, $callback): void {

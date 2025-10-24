@@ -48,7 +48,7 @@ class CustomWithdrawalMenu extends CustomForm
             }
 
             EconomyManager::addMoney($player, (float)$input);
-            $player->sendMessage(str_replace("{AMOUNT}", (string)$input, API::getMessage("bank.withdraw-seccess")));
+            $player->sendMessage(Skyblock::$prefix . API::getMessage("bank.withdraw-seccess", ["{AMOUNT}" => (string)$input]));
             BankManager::reduceBankMoney($player, (float)$input);
             }
         );

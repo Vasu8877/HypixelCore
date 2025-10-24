@@ -1,0 +1,20 @@
+Default:
+  Alisa: Default
+  ChatFormat: "&r&r &r{player_name} &7> &r{msg}"
+  NameFormat: "&r&r &r{player_name}"
+  Permissions: 
+  - frostnetwork.xyz
+
+Admin:
+  Alisa: Admin
+  ChatFormat: "&r&r &r{player_name} &7> &l&c{msg}"
+  NameFormat: "&r&r &r{player_name}"
+  Permissions: 
+  - "*"
+
+Noble:
+  Alisa: Noble
+  ChatFormat: "&r&r &r{player_name} &7> &l&6{msg}"
+  NameFormat: "&r&r &r{player_name}"
+  Permissions: 
+  - weather.command.bt

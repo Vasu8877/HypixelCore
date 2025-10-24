@@ -23,7 +23,7 @@ class WeatherCommand extends Command
                 $sender->sendForm(new WeatherSettingsForm());
                 return true;
             }
-            $sender->sendMessage($this->getPermissionMessage() ?? "§8» §7This command is only for VIP users!");
+            $sender->sendMessage($this->getPermissionMessage() ?? "§8» §7This command is only for  and +SSS users!");
         }
         return false;
     }

@@ -5,10 +5,9 @@ declare(strict_types = 1);
 namespace Biswajit\Core;
 
 use Biswajit\Core\Entitys\Minion\MinionEntity;
-use finfo;
-use pocketmine\entity\Living;
 use pocketmine\item\Item;
 use pocketmine\item\StringToItemParser;
+use pocketmine\math\AxisAlignedBB;
 use pocketmine\resourcepacks\ZippedResourcePack;
 use pocketmine\Server;
 use pocketmine\utils\Config;
@@ -18,6 +17,7 @@ use Symfony\Component\Filesystem\Path;
 use ZipArchive;
 
 class API {
+
   /**
    * Loads or creates the hub world if it doesn't exist
    */
@@ -186,10 +186,40 @@ class API {
 		};
   }
 
+  public static function getPlayerWorld(Player $player): ?string {
+    $worldName = $player->getWorld()->getFolderName();
+
+    if ($worldName === self::getHub()) {
+        $mineRegion = new AxisAlignedBB(13.00, (float) World::Y_MIN, 112.00, 255.00, (float) World::Y_MAX, 461.00);
+        $forestRegion = new AxisAlignedBB(-231.00, (float) World::Y_MIN, -554.00, 26.00, (float) World::Y_MAX, -120.00);
+        $FarmingRegion = new AxisAlignedBB(-256.00, World::Y_MIN, -95.00, -42.00, World::Y_MAX, 52.00);
+        $gravyaRegion = new AxisAlignedBB(89.00, World::Y_MIN, -94.00, 449.00, World::Y_MAX, 83.00);
+        
+        $position = $player->getPosition();
+        if ($mineRegion->isVectorInXZ($position)) {
+            return "⏣ §aMine";
+        } elseif ($forestRegion->isVectorInXZ($position)) {
+            return "⏣ §aForest";
+        } elseif ($FarmingRegion->isVectorInXZ($position)) {
+            return "⏣ §aFarming";
+        } elseif ($gravyaRegion->isVectorInXZ($position)) {
+            return "⏣ §aGraveyard";
+        } else {
+            return "⏣ §aVillage";
+        }
+    }
+
+    if ($worldName === $player->getName()) {
+        return "⏣ §aYour Island";
+    }
+
+    return "⏣ §aGuest Island";
+}
+
   /**
    * Gets a message from messages.yml
    */
-  public static function getMessage(string $key, array $replace = []): string {
+  public static function getMessage(string $key, array $replace = []): string|array {
     $file = new Config(Skyblock::getInstance()->getDataFolder() . "messages.yml", Config::YAML, []);
     $message = $file->getNested($key) ?? "Message '$key' not found";
     foreach ($replace as $search => $value) {

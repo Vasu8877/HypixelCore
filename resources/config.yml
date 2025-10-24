@@ -39,6 +39,19 @@ SERVER-NAME: §eYour Server
 VOTE-WEBSITE: §ehttps:://yourvotelink.com
 DISCORD-LINK: §ehttps:://discord.gg/yourdiscord
 
-RESPAWN-TIME: 120 # block regain time in seconds farm, mine, forest...
+RESPAWN-TIME: 20 # block regain time in seconds farm, mine, forest...
 
 PLAYER-COUNT: 1 # increace server max player count...
+
+SERVER-IP: play.yourserver.com
+
+SCOREBOARD-TITLE: "§9S§bky§3Block"
+SCOREBOARD-TITLES:
+  "§9S§bky§3Block": "§bS§9k§by§3Block"
+  "§bS§9k§by§3Block": "§bSk§9y§3Block"
+  "§bSk§9y§3Block": "§bSky§9B§3lock"
+  "§bSky§9B§3lock": "§bSky§3B§9l§3ock"
+  "§bSky§3B§9l§3ock": "§bSky§3Bl§9o§3ck"
+  "§bSky§3Bl§9o§3ck": "§bSky§3Blo§9c§3k"
+  "§bSky§3Blo§9c§3k": "§bSky§3Bloc§9k"
+  "§bSky§3Bloc§9k": "§9S§bky§3Block"

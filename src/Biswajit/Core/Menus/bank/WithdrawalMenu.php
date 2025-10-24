@@ -29,7 +29,7 @@ class WithdrawalMenu extends MenuForm
                     }
 
                     EconomyManager::addMoney($sender, BankManager::getBankMoney($sender));
-                    $sender->sendMessage(str_replace("{AMOUNT}", BankManager::getBankMoney($sender), API::getMessage("bank.withdraw-seccess")));
+                    $sender->sendMessage(Skyblock::$prefix . API::getMessage("bank.withdraw-seccess", ["{AMOUNT}" => (string)BankManager::getBankMoney($sender)]));
                     BankManager::reduceBankMoney($sender, BankManager::getBankMoney($sender));
                     break;
                 case 1:
@@ -39,7 +39,7 @@ class WithdrawalMenu extends MenuForm
                     }
 
                     EconomyManager::addMoney($sender, BankManager::getBankMoney($sender) / 2);
-                    $sender->sendMessage(str_replace("{AMOUNT}", BankManager::getBankMoney($sender) / 2, API::getMessage("bank.withdraw-seccess")));
+                    $sender->sendMessage(Skyblock::$prefix . API::getMessage("bank.withdraw-seccess", ["{AMOUNT}" => (string)(BankManager::getBankMoney($sender) / 2)]));
                     BankManager::reduceBankMoney($sender, BankManager::getBankMoney($sender) / 2);
                     break;
                 case 2:

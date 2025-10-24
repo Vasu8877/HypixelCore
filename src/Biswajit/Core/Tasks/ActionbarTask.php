@@ -14,15 +14,16 @@ class ActionbarTask extends Task
             if ($player instanceof Player) {
                 $mana = $player->getMana();
                 $maxMana = $player->getMaxMana();
-                $heal = $player->getHealth();
-                $maxheal = $player->getMaxHealth();
+                $health = $player->getHealth();
+                $maxhealth = $player->getMaxHealth();
+                $defense = $player->getDefense();
 
-                if ($heal > $maxheal) {
-                    $player->setHealth($maxheal);
+                if ($health > $maxhealth) {
+                    $player->setHealth($maxhealth);
                 }
-                
-                $player->sendActionBarMessage("§cHealth: $heal" . "§7/§c$maxheal  §bMana: $mana" . "§7/§b$maxMana ");
-            }
+
+                $player->sendActionBarMessage("§c❤ {$health}§7/§c{$maxhealth}  §a {$defense}  §b {$mana}§7/§b{$maxMana}");
+           }
         }
     }
 }

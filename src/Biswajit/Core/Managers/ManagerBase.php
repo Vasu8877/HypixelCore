@@ -67,7 +67,7 @@ trait ManagerBase {
         return Server::getInstance();
     }
 
-    public function getDataFolder(): string {
+    public static function getDataFolder(): string {
         return Skyblock::getInstance()->getDataFolder();
     }
 
