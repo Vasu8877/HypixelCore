@@ -8,6 +8,7 @@ use Biswajit\Core\API;
 use Biswajit\Core\Managers\BlockManager;
 use Biswajit\Core\Managers\EconomyManager;
 use Biswajit\Core\Managers\IslandManager;
+use Biswajit\Core\Menus\player\PlayerMenu;
 use Biswajit\Core\Player;
 use Biswajit\Core\Skyblock;
 use pocketmine\event\block\BlockBreakEvent;
@@ -17,6 +18,7 @@ use pocketmine\event\entity\EntityDamageEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\Server;
 use pocketmine\event\block\SignChangeEvent;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\world\World;
 
@@ -32,6 +34,15 @@ public function onEntityDamage(EntityDamageEvent $event): void
     $worldName = $entity->getWorld()->getFolderName();
 
     if(API::getHub() !== $worldName) return;
+
+    if ($event instanceof EntityDamageByEntityEvent) {
+        $damager = $event->getDamager();
+
+        if (!$damager instanceof Player) return;
+
+        $damager->sendForm(new PlayerMenu($damager, $entity));
+        $event->cancel();
+    }
 
     $event->cancel();
 

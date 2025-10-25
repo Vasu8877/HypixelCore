@@ -11,6 +11,15 @@ Admin:
   NameFormat: "&r&r &r{player_name}"
   Permissions: 
   - "*"
+  - weather.command.bt
+  - nick.form
+  - hide.form
+  - perks.form
+  - size.form
+  - vanish.form
+  - player.fly.cmd
+  - emoji.chat
+  - admin.chat
 
 Noble:
   Alisa: Noble
@@ -18,3 +27,48 @@ Noble:
   NameFormat: "&r&r &r{player_name}"
   Permissions: 
   - weather.command.bt
+  - nick.form
+  - hide.form
+  - player.fly.cmd
+  - emoji.chat
+
+Rich:
+  Alisa: Rich
+  ChatFormat: "&r&r &r{player_name} &7> &l&a{msg}"
+  NameFormat: "&r&r &r{player_name}"
+  Permissions: 
+  - weather.command.bt
+  - nick.form
+  - hide.form
+  - perks.form
+  - size.form
+  - player.fly.cmd
+  - emoji.chat
+
+Supreme:
+  Alisa: Supreme
+  ChatFormat: "&r&r &r{player_name} &7> &l&6{msg}"
+  NameFormat: "&r&r &r{player_name}"
+  Permissions: 
+  - weather.command.bt
+  - nick.form
+  - hide.form
+  - perks.form
+  - size.form
+  - vanish.form
+  - player.fly.cmd
+  - emoji.chat
+
+Youtuber:
+  Alisa: Youtuber
+  ChatFormat: "&r&r &r{player_name} &7> &l&6{msg}"
+  NameFormat: "&r&r &r{player_name}"
+  Permissions: 
+  - weather.command.bt
+  - nick.form
+  - hide.form
+  - perks.form
+  - size.form
+  - vanish.form
+  - player.fly.cmd
+  - emoji.chat

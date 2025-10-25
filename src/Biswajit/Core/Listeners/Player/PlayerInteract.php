@@ -3,11 +3,15 @@
 namespace Biswajit\Core\Listeners\Player;
 
 use Biswajit\Core\API;
+use Biswajit\Core\Blocks\Grindstone;
 use Biswajit\Core\Entitys\Minion\types\FarmerMinion;
 use Biswajit\Core\Entitys\Minion\types\ForagingMinion;
 use Biswajit\Core\Entitys\Minion\types\MinerMinion;
 use Biswajit\Core\Entitys\Minion\types\SlayerMinion;
 use Biswajit\Core\Items\items\minionHeads;
+use Biswajit\Core\Menus\anvil\AnvilMainForm;
+use Biswajit\Core\Menus\grindstone\GrindStoneForm;
+use Biswajit\Core\Menus\items\CraftingTableMenu;
 use Biswajit\Core\Skyblock;
 use Biswajit\Core\Utils\Utils;
 use JsonException;
@@ -30,6 +34,29 @@ class PlayerInteract implements Listener
 		$world = $player->getWorld();
 		$block = $event->getBlock();
 		$position = $block->getPosition();
+
+	 if ($event->getAction() === PlayerInteractEvent::RIGHT_CLICK_BLOCK) {
+		if ($block->getTypeId() === BlockTypeIds::CRAFTING_TABLE) {
+			$event->cancel();
+			$form = new CraftingTableMenu();
+			$player->sendForm($form);
+			return;
+		}
+
+		if ($block->getTypeId() === BlockTypeIds::ANVIL) {
+			$event->cancel();
+			$form = new AnvilMainForm();
+			$player->sendForm($form);
+			return;
+		}
+
+		if ($block instanceof Grindstone) {
+			$event->cancel();
+			$form = new GrindStoneForm();
+			$player->sendForm($form);
+			return;
+		}
+	 }
 
 		if($block->getTypeId() === BlockTypeIds::ITEM_FRAME && $world->getFolderName() !== $player->getWorld()->getFolderName()) return;
 

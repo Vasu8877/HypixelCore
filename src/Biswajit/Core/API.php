@@ -18,6 +18,8 @@ use ZipArchive;
 
 class API {
 
+  public static array $vanish = [];
+
   /**
    * Loads or creates the hub world if it doesn't exist
    */
@@ -197,23 +199,23 @@ class API {
         
         $position = $player->getPosition();
         if ($mineRegion->isVectorInXZ($position)) {
-            return "⏣ §aMine";
+            return "§a Mine";
         } elseif ($forestRegion->isVectorInXZ($position)) {
-            return "⏣ §aForest";
+            return "§a Forest";
         } elseif ($FarmingRegion->isVectorInXZ($position)) {
-            return "⏣ §aFarming";
+            return "§a Farming";
         } elseif ($gravyaRegion->isVectorInXZ($position)) {
-            return "⏣ §aGraveyard";
+            return "§a Graveyard";
         } else {
-            return "⏣ §aVillage";
+            return "§a Village";
         }
     }
 
     if ($worldName === $player->getName()) {
-        return "⏣ §aYour Island";
+        return "§a Your Island";
     }
 
-    return "⏣ §aGuest Island";
+    return "§a Guest Island";
 }
 
   /**

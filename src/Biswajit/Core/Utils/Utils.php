@@ -8,6 +8,10 @@ use Biswajit\Core\Player;
 use Biswajit\Core\Skyblock;
 use pocketmine\item\Item;
 use pocketmine\math\Vector3;
+use pocketmine\nbt\BigEndianNbtSerializer;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\TreeRoot;
+use pocketmine\network\mcpe\protocol\types\DeviceOS;
 
 class Utils {
 
@@ -75,6 +79,18 @@ class Utils {
 	return null;
   }
 
+    public static function encodeSingleItemToB64(Item $item): string {
+      $nbt = $item->nbtSerialize();
+      $root = new TreeRoot($nbt instanceof CompoundTag ? $nbt : CompoundTag::create());
+      return base64_encode((new BigEndianNbtSerializer())->write($root));
+    }
+
+    public static function decodeSingleItemFromB64(string $b64): Item {
+      $binary = base64_decode($b64);
+      $tag = (new BigEndianNbtSerializer())->read($binary)->mustGetCompoundTag();
+      return Item::nbtDeserialize($tag);
+   }
+
     public static function parseDuration(string $duration): int {
         $duration = strtolower($duration);
         $value = (int)substr($duration, 0, -1);
@@ -126,6 +142,12 @@ class Utils {
 		return $romanString;
 	}
 
+	 public function resetNick(Player $sender): void {
+       $sender->setDisplayName($sender->getName());
+       $sender->setNameTag($sender->getName());
+       $sender->sendMessage("§8(§b!§8) §7Your nickname has been reset!");
+    }
+
 	public static function giveItems(Player $player, Item $items): void
 	{
 		if ($player->getInventory()->canAddItem($items)) {
@@ -140,6 +162,45 @@ class Utils {
 		$z = $pos->getZ();
 		$world->dropItem(new Vector3($x, $y, $z), $items);
 	}
+
+	public static function removeKeyFromArray(array $a_array, $a_key): array {
+      $b_array = [];
+      foreach($a_array as $b_key)
+      {
+        if($a_key !== $b_key)
+          {
+           $b_array[] = $b_key;
+           }
+        }
+       return $b_array;
+    }
+
+	public static function getPlayerPlatform(Player $player): string
+    {
+        $extraData = $player->getPlayerInfo()->getExtraData();
+
+        if ($extraData["DeviceOS"] === DeviceOS::ANDROID && $extraData["DeviceModel"] === "") {
+            return "Linux";
+        }
+
+        return match ($extraData["DeviceOS"]) {
+            DeviceOS::ANDROID => "Android",
+            DeviceOS::IOS => "iOS",
+            DeviceOS::OSX => "macOS",
+            DeviceOS::AMAZON => "FireOS",
+            DeviceOS::GEAR_VR => "Gear VR",
+            DeviceOS::HOLOLENS => "Hololens",
+            DeviceOS::WINDOWS_10 => "Windows",
+            DeviceOS::WIN32 => "Windows 7 (Edu)",
+            DeviceOS::DEDICATED => "Dedicated",
+            DeviceOS::TVOS => "TV OS",
+            DeviceOS::PLAYSTATION => "PlayStation",
+            DeviceOS::NINTENDO => "Nintendo Switch",
+            DeviceOS::XBOX => "Xbox",
+            DeviceOS::WINDOWS_PHONE => "Windows Phone",
+            default => "Unknown"
+        };
+    }
 
 	public static function createSkin(string $path): string {
       $image = @imagecreatefrompng($path);

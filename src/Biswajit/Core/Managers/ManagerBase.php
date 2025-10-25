@@ -59,7 +59,7 @@ trait ManagerBase {
 		self::$instance = null;
 	}
 
-	public function getPlugin(): Skyblock {
+	public static function getPlugin(): Skyblock {
         return Skyblock::getInstance();
     }
 

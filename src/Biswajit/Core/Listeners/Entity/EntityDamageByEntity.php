@@ -28,11 +28,13 @@ class EntityDamageByEntity implements Listener {
 
       if ($event->getCause() === EntityDamageEvent::CAUSE_PROJECTILE) {
           $deltaX = $entity->getPosition()->x - $damager->getPosition()->x;
-		      $deltaZ = $entity->getPosition()->z - $damager->getPosition()->z;
+		  $deltaZ = $entity->getPosition()->z - $damager->getPosition()->z;
+
            if ($entity->isOnline()) {
-		            $entity->knockBack($deltaX, $deltaZ, $event->getKnockback());
+		        $entity->knockBack($deltaX, $deltaZ, $event->getKnockback());
                 $entity->damagePlayer($event->getFinalDamage());
               }
+              
               $event->cancel();
           }
        }

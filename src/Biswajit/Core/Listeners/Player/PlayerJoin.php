@@ -36,7 +36,7 @@ class PlayerJoin implements Listener {
         if (BankManager::getBankMoney($player) > 0) {
           if(!array_key_exists($player->getName(), BankManager::$interest)) {
             BankManager::$interest[$player->getName()] =  Skyblock::getInstance()->getScheduler()->scheduleRepeatingTask(new InterestTask(Skyblock::getInstance(), $player), 72000);
-      } 
+      }
     }
   }
 }

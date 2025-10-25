@@ -21,6 +21,7 @@ class RankManager {
     {
         $player->setRank("Rank", $rankName);
         $player->setRank("expiry", $durationSeconds);
+        self::removeAttach($player);
         self::addPermissionsForPlayer($player);
         $format = self::getNameFormat(self::getRankOfPlayer($player));
         $finalFormat = str_replace(["&", "{player_name}"], ["§", $player->getName()], $format);

@@ -6,6 +6,7 @@ namespace Biswajit\Core\Listeners\Server;
 
 use Biswajit\Core\API;
 use Biswajit\Core\Managers\IslandManager;
+use Biswajit\Core\Menus\player\PlayerMenu;
 use Biswajit\Core\Skyblock;
 use Biswajit\Core\Utils\Utils;
 use Biswajit\Core\Sessions\IslandData;
@@ -17,6 +18,7 @@ use pocketmine\event\Listener;
 use pocketmine\inventory\Inventory;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerMoveEvent;
 use pocketmine\event\player\PlayerQuitEvent;
@@ -283,6 +285,16 @@ class IslandListener implements Listener
             $level = $player->getWorld()->getFolderName();
 
             if($level === API::getHub()) return;
+
+             if ($event instanceof EntityDamageByEntityEvent) {
+                 $damager = $event->getDamager();
+                 $entity = $event->getEntity();
+
+                if (!$damager instanceof Player) return;
+
+                     $damager->sendForm(new PlayerMenu($damager, $entity));
+                     $event->cancel();
+             }
             
                 if ($event->getCause() === EntityDamageEvent::CAUSE_VOID) {
 

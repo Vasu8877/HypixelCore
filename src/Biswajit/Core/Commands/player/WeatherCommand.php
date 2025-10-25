@@ -13,7 +13,7 @@ class WeatherCommand extends Command
     {
         parent::__construct("weather", "§bChange the weather of the island!", "/weather", ["weather forecast"]);
         $this->setPermission("weather.command.bt");
-        $this->setPermissionMessage("§8» §7This command is only for VIP users!");
+        $this->setPermissionMessage("§8» §7This command is only for  and + users!");
     }
 
     public function execute(CommandSender $sender, string $commandLabel, array $args): mixed
@@ -23,7 +23,7 @@ class WeatherCommand extends Command
                 $sender->sendForm(new WeatherSettingsForm());
                 return true;
             }
-            $sender->sendMessage($this->getPermissionMessage() ?? "§8» §7This command is only for  and +SSS users!");
+            $sender->sendMessage($this->getPermissionMessage() ?? "§8» §7This command is only for  and + users!");
         }
         return false;
     }

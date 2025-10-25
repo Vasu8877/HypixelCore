@@ -88,5 +88,21 @@ trait SessionsData {
     public function setMaxMana(int $amount): void {
         $this->data["MaxMana"] = $amount;
     }
-    
+
+    public function getVision(): bool {
+        return $this->data["Vision"] ?? false;
+    }
+
+    public function setVision(bool $value): void {
+        $this->data["Vision"] = $value;
+    }
+
+    public function getSpeed(): bool {
+        return $this->data["Speed"] ?? false;
+    }
+
+    public function setSpeed(bool $value): void {
+        $this->data["Speed"] = $value;
+    }
+
 }

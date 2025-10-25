@@ -9,12 +9,14 @@ use Biswajit\Core\Managers\CoreManager;
 use Biswajit\Core\Managers\ScoreBoardManager;
 use Biswajit\Core\Managers\Worlds\IslandGenerator;
 use Biswajit\Core\Tasks\AsynTasks\loadDataTask;
+use Biswajit\Core\Utils\CraftingTableInvMenuType;
 use Biswajit\Core\Utils\Loader;
 use Biswajit\Core\Utils\Utils;
 use muqsit\invmenu\InvMenuHandler;
 use pocketmine\data\bedrock\EnchantmentIdMap;
 use pocketmine\item\enchantment\Enchantment;
 use pocketmine\plugin\PluginBase;
+use pocketmine\utils\Config;
 use pocketmine\utils\SingletonTrait;
 use pocketmine\utils\TextFormat;
 use pocketmine\world\generator\GeneratorManager;
@@ -28,6 +30,12 @@ class Skyblock extends PluginBase {
     public static string $prefix;
     public const FAKE_ENCH_ID = 500;
     private array $handlers = [];
+
+    public static array $profanities = [];
+
+    //thanks to muqsit for portable crafting
+    public const INV_MENU_TYPE_WORKBENCH = "portablecrafting:workbench";
+
 
     public function onLoad(): void {
         self::$instance = $this;
@@ -70,6 +78,7 @@ class Skyblock extends PluginBase {
         
         @mkdir($this->getDataFolder() . "island");
 		@mkdir($this->getDataFolder() . "minion");
+        @mkdir($this->getDataFolder() . "recipes");
         
 		$this->saveResource("minion/minion.zip");
         $this->saveResource("minion/minion.geo.json");
@@ -77,8 +86,13 @@ class Skyblock extends PluginBase {
         $this->saveResource("entity.yml");
         $this->saveResource("Skyblock.mcpack");
         $this->saveResource("ranks.yml");
+        $this->saveResource("emojis.yml");
+        $this->saveResource("profanity_filter.wlist");
 
         $this->getLogger()->info("§l§bLoading SkyblockCore Version: ". TextFormat::YELLOW . Utils::getVersion());
+
+        $profanities = file($this->getDataFolder() . "profanity_filter.wlist", FILE_IGNORE_NEW_LINES);
+        self::$profanities = !$profanities ? [] : $profanities;
 
     }
 
@@ -106,6 +120,8 @@ class Skyblock extends PluginBase {
 	if(!InvMenuHandler::isRegistered()) {
 		InvMenuHandler::register($this);
 	}
+
+    InvMenuHandler::getTypeRegistry()->register(self::INV_MENU_TYPE_WORKBENCH, new CraftingTableInvMenuType());
 }
 
   public function onDisable(): void {
@@ -121,4 +137,15 @@ class Skyblock extends PluginBase {
     public function addHandler($handler): void {
 		$this->handlers[] = $handler;
 	}
+
+    public function getRecipeFile($recipe): Config {
+      $this->saveResource("recipes/$recipe.yml");
+      $recipeFile = new Config($this->getDataFolder() . "recipes/$recipe.yml", Config::YAML, [
+        ]);
+      return $recipeFile;
+     }
+
+    public function getEmojis(): Config {
+      return new Config($this->getDataFolder() . "emojis.yml", Config::YAML, []);
+    }
 }

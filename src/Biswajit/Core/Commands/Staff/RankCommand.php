@@ -49,12 +49,11 @@ class RankCommand extends Command
             return;
         }
 
-        $availableRanks = RankManager::getRankList();
-        $availableRanksLower = array_map('strtolower', $availableRanks);
+        $availableRanksLower = RankManager::getRankList();
 
-        if (!in_array(strtolower($rankName), $availableRanksLower)) {
+        if (!in_array($rankName, $availableRanksLower)) {
             $sender->sendMessage(Skyblock::$prefix . API::getMessage("rank-not-exist", ["{RANK}" => $rankName]));
-            $sender->sendMessage(Skyblock::$prefix . API::getMessage("available-ranks", ["{RANKS}" => implode(", ", $availableRanks)]));
+            $sender->sendMessage(Skyblock::$prefix . API::getMessage("available-ranks", ["{RANKS}" => implode(", ", $availableRanksLower)]));
             return;
         }
 

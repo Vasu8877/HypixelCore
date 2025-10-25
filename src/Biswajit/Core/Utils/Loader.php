@@ -5,6 +5,8 @@ declare(strict_types = 1);
 namespace Biswajit\Core\Utils;
 
 use Biswajit\Core\Commands\player\BankCommand;
+use Biswajit\Core\Commands\player\EmojisCommand;
+use Biswajit\Core\Commands\player\FlyCommand;
 use Biswajit\Core\Commands\player\HubCommand;
 use Biswajit\Core\Commands\player\IslandCommand;
 use Biswajit\Core\Commands\player\JoinCommand;
@@ -12,12 +14,12 @@ use Biswajit\Core\Commands\player\TopBankCommand;
 use Biswajit\Core\Commands\player\TopMoneyCommand;
 use Biswajit\Core\Commands\player\VisitCommand;
 use Biswajit\Core\Commands\player\WeatherCommand;
+use Biswajit\Core\Commands\Staff\CreateRecipeCommand;
 use Biswajit\Core\Commands\Staff\EconomyCommand;
 use Biswajit\Core\Commands\Staff\GemsCommand;
 use Biswajit\Core\Commands\Staff\MultiWorld;
 use Biswajit\Core\Commands\Staff\RankCommand;
 use Biswajit\Core\Commands\Staff\SetEntityCommand;
-use Biswajit\Core\Entitys\Minion\MinionEntity;
 use Biswajit\Core\Entitys\Minion\types\FarmerMinion;
 use Biswajit\Core\Entitys\Minion\types\ForagingMinion;
 use Biswajit\Core\Entitys\Minion\types\MinerMinion;
@@ -33,6 +35,7 @@ use Biswajit\Core\Entitys\Vanilla\Zombie;
 use Biswajit\Core\Listeners\Entity\EntityAttackEvent;
 use Biswajit\Core\Listeners\Entity\EntityDamageByEntity;
 use Biswajit\Core\Listeners\Entity\EntityRegainHealth;
+use Biswajit\Core\Listeners\Entity\EntityTeleport;
 use Biswajit\Core\Listeners\Entity\EntityTrampleFarmland;
 use Biswajit\Core\Listeners\Inventory\InventoryTransaction;
 use Biswajit\Core\Listeners\Player\PlayerChat;
@@ -87,12 +90,16 @@ class Loader {
              new QueryRegenerate(),
 			 new PlayerInteract(),
              new EntityAttackEvent(),
-             new PlayerChat()
+             new PlayerChat(),
+             new EntityTeleport()
         ];
 
         foreach ($listeners as $event){
            Skyblock::getInstance()->getServer()->getPluginManager()->registerEvents($event, Skyblock::getInstance());
         }
+
+        $count = count($listeners);
+        Skyblock::getInstance()->getLogger()->info("§c{$count}§f Listeners register !");
     }
 
   public static function loadCommands(): void
@@ -110,7 +117,10 @@ class Loader {
             new TopMoneyCommand(),
             new SetEntityCommand(),
             new GemsCommand(),
-            new RankCommand()
+            new RankCommand(),
+            new CreateRecipeCommand(),
+            new FlyCommand(),
+            new EmojisCommand()
         ];
 
         foreach($commands as $cmd){

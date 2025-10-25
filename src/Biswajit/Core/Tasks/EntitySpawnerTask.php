@@ -75,7 +75,6 @@ class EntitySpawnerTask extends Task
                 }
 
                 $entityClass = self::ENTITY_CLASSES[$entityType];
-                if (count(API::getEntities($world, $entityClass)) >= 10) return;
 
                 if (!$entityExists) {
                     $entity = new $entityClass($location);

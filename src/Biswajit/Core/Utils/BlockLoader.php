@@ -6,12 +6,18 @@ namespace Biswajit\Core\Utils;
 
 use Biswajit\Core\Blocks\CustomFarmLand;
 use Biswajit\Core\Blocks\EndPortal;
+use Biswajit\Core\Blocks\Grindstone;
 use pocketmine\block\Block;
+use pocketmine\block\BlockBreakInfo;
 use pocketmine\block\BlockIdentifier;
+use pocketmine\block\BlockTypeIds;
 use pocketmine\block\BlockTypeInfo;
 use pocketmine\block\RuntimeBlockStateRegistry;
 use pocketmine\block\VanillaBlocks;
 use pocketmine\data\bedrock\block\BlockTypeNames;
+use pocketmine\data\bedrock\block\convert\BlockStateReader;
+use pocketmine\data\bedrock\block\convert\BlockStateWriter;
+use pocketmine\inventory\CreativeInventory;
 use pocketmine\item\StringToItemParser;
 use pocketmine\scheduler\AsyncTask;
 use pocketmine\Server;
@@ -61,6 +67,7 @@ class BlockLoader {
 
   public static function registerBlocks() : void{
 		self::registerSimpleBlock(BlockTypeNames::END_PORTAL, EndPortal::END_PORTAL(), ["end_portal"]);
+        self::Grindstone();
 	}
 
     /**
@@ -77,5 +84,34 @@ class BlockLoader {
 			StringToItemParser::getInstance()->registerBlock($name, fn() => clone $block);
 		}
 	}
+
+    public static function Grindstone(): void
+    {
+        $id = BlockTypeNames::GRINDSTONE;
+        $block = new Grindstone(new BlockIdentifier(BlockTypeIds::newId()), "minecraft:grindstone", new BlockTypeInfo(BlockBreakInfo::instant()));
+        self::register($block, [$id]);
+
+        GlobalBlockStateHandlers::getDeserializer()->map($id,
+            fn(BlockStateReader $reader): Grindstone => (clone $block)
+                ->setFacing($reader->readLegacyHorizontalFacing())
+                ->setAttachmentType($reader->readBellAttachmentType())
+        );
+        GlobalBlockStateHandlers::getSerializer()->map($block,
+            fn(Grindstone $block) => BlockStateWriter::create($id)
+                ->writeLegacyHorizontalFacing($block->getFacing())
+                ->writeBellAttachmentType($block->getAttachmentType())
+        );
+    }
+
+    private static function register(Block $block, array $stringToItemParserNames, bool $addToCreative = true): void
+    {
+        RuntimeBlockStateRegistry::getInstance()->register($block);
+        foreach ($stringToItemParserNames as $name) {
+            StringToItemParser::getInstance()->registerBlock($name, fn() => clone $block);
+        }
+        if ($addToCreative) {
+            CreativeInventory::getInstance()->add($block->asItem());
+        }
+    }
 
 }

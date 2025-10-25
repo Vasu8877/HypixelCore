@@ -1,5 +1,5 @@
 name: SkyblockCore
-version: 0.1.5
+version: 0.1.6
 author: Biswajit
 main: Biswajit\Core\Skyblock
 api: 5.30.0
@@ -19,6 +19,12 @@ permissions:
   staff.entity.cmd:
     default: op
   staff.rank.cmd:
+    default: op
+  staff.craft.cmd:
+    default: op
+  player.fly.cmd:
+    default: op
+  emoji.chat:
     default: op
   player.bank.cmd:
     default: true
