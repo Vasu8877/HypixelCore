@@ -1,6 +1,6 @@
 <?php
 
-namespace Pushkar\MagicCore\commands;
+namespace Biswajit\Core\Commands\player;
 
 use pocketmine\player\Player;
 use pocketmine\command\Command;
@@ -24,3 +24,4 @@ class RecipesCommand extends Command
         return false;
     }
 }
+
