@@ -32,3 +32,5 @@ permissions:
     default: true
   player.topbank.cmd:
     default: true
+  normal.cmd:
+    default: true
