@@ -5,7 +5,7 @@ namespace Biswajit\Core\Commands\player;
 use pocketmine\player\Player;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
-use Pushkar\MagicCore\forms\RecipesForm;
+use Biswajit\Core\Menus\Recipes;
 
 class RecipesCommand extends Command
 {
@@ -24,4 +24,5 @@ class RecipesCommand extends Command
         return false;
     }
 }
+
 
